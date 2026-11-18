@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design tokens
+ * -------------
+ * 1. Raw palette (@theme): fixed colours. Prefer the semantic tokens below in components.
+ * 2. Semantic tokens (@theme inline): resolve per section via the surface classes,
+ *    so one component renders correctly on dark, light and muted sections.
+ *
+ * Contrast (WCAG 2.x) for every text/accent pair is recorded in docs/design-system.md.
+ */
+
+@theme {
+  /* Raw palette */
+  --color-navy-950: #0b1220;
+  --color-navy-900: #131c2e;
+  --color-navy-800: #22304a;
+  --color-navy-300: #a3acbd;
+
+  --color-cream-50: #faf8f3;
+  --color-sand-50: #f7f6f2;
+  --color-sand-100: #eeece7;
+  --color-sand-300: #d6d3cc;
+
+  --color-ink-900: #111827;
+  --color-ink-600: #525b6b;
+
+  --color-accent-lime: #b5e655;
+  --color-accent-green: #3f6212;
+
+  /* Layout widths: max-w-content, max-w-prose-narrow */
+  --container-content: 72rem;
+  --container-prose-narrow: 44rem;
+
+  /* Vertical rhythm for page sections: py-section */
+  --spacing-section: clamp(4rem, 8vw, 8rem);
+
+  /* Fluid display sizes (Tailwind's default scale covers body and UI text) */
+  --text-display: clamp(2.5rem, 4vw + 1.5rem, 4.5rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.025em;
+  --text-headline: clamp(1.875rem, 2vw + 1.25rem, 3rem);
+  --text-headline--line-height: 1.15;
+  --text-headline--letter-spacing: -0.02em;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Semantic colours: bg-surface, bg-surface-raised, text-fg, text-fg-muted,
+     text-accent, bg-accent, text-accent-contrast, border-line */
+  --color-surface: var(--surface-bg);
+  --color-surface-raised: var(--surface-raised);
+  --color-fg: var(--surface-fg);
+  --color-fg-muted: var(--surface-fg-muted);
+  --color-accent: var(--surface-accent);
+  --color-accent-contrast: var(--surface-accent-contrast);
+  --color-line: var(--surface-line);
+
+  /* Typography from next/font (src/lib/fonts.ts) */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+ * Surfaces
+ * --------
+ * Apply one class per section: surface-light (default), surface-dark or surface-muted.
+ * Light values are also set on :root so content outside a section is styled.
+ */
+@layer base {
+  :root,
+  .surface-light {
+    --surface-bg: var(--color-cream-50);
+    --surface-raised: #ffffff;
+    --surface-fg: var(--color-ink-900);
+    --surface-fg-muted: var(--color-ink-600);
+    --surface-accent: var(--color-accent-green);
+    --surface-accent-contrast: var(--color-cream-50);
+    --surface-line: var(--color-sand-300);
+    color-scheme: light;
+  }
+
+  .surface-muted {
+    --surface-bg: var(--color-sand-100);
+    --surface-raised: var(--color-sand-50);
+    --surface-fg: var(--color-ink-900);
+    --surface-fg-muted: var(--color-ink-600);
+    --surface-accent: var(--color-accent-green);
+    --surface-accent-contrast: var(--color-cream-50);
+    --surface-line: var(--color-sand-300);
+    color-scheme: light;
+  }
+
+  .surface-dark {
+    --surface-bg: var(--color-navy-950);
+    --surface-raised: var(--color-navy-900);
+    --surface-fg: #f5f3ee;
+    --surface-fg-muted: var(--color-navy-300);
+    --surface-accent: var(--color-accent-lime);
+    --surface-accent-contrast: var(--color-navy-950);
+    --surface-line: var(--color-navy-800);
+    color-scheme: dark;
+  }
+
+  .surface-light,
+  .surface-muted,
+  .surface-dark {
+    background-color: var(--surface-bg);
+    color: var(--surface-fg);
+  }
+
+  body {
+    background-color: var(--surface-bg);
+    color: var(--surface-fg);
+  }
+
+  /* Visible keyboard focus on every surface (accent is >= 6:1 against each background) */
+  :focus-visible {
+    outline: 2px solid var(--surface-accent);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--surface-accent);
+    color: var(--surface-accent-contrast);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Motion: smooth scrolling only when the user has not asked for reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
