@@ -54,6 +54,28 @@ yarn dev      # start the dev server at http://localhost:3000
 
 Run `yarn typecheck && yarn lint && yarn build` before opening a pull request.
 
+## Continuous integration
+
+GitHub Actions workflows live in `.github/workflows`. Nothing is deployed.
+
+| Workflow | Checks | Runs on |
+| --- | --- | --- |
+| **CI** | Frozen-lockfile install, `yarn lint`, `yarn typecheck`, `yarn build` (Node from `.nvmrc`) | PRs to `main`, pushes to `main`, manual |
+| **Security** | `yarn audit` (blocks high or critical in production dependencies; reports dev dependencies without blocking), Gitleaks secret scan, dependency review of PR changes (blocks high or above) | PRs, pushes to `main`, weekly, manual |
+| **CodeQL** | Static analysis of the TypeScript code and the workflow files | PRs, pushes to `main`, weekly, manual |
+| **Conventional Commits** | PR title and every non-merge commit match `type(optional-scope): description` | PRs (including title edits) |
+
+**Before merging**, every check above must pass. To check a message locally:
+`.github/scripts/check-conventional-commit.sh message "ci: add quality checks"`.
+
+**Manual GitHub settings** (repository owner):
+
+1. **Code scanning:** in Settings → Code security, leave CodeQL **default setup** disabled, because this repository uses the CodeQL workflow (advanced setup).
+2. **Branch protection:** in Settings → Branches (or Rules), protect `main` and require these status checks: `Lint, typecheck and build`, `Dependency audit`, `Secret scan`, `Dependency review`, `Analyze (javascript-typescript)`, `Analyze (actions)` and `PR title and commit messages`.
+3. **Dependency graph** must stay enabled for dependency review. It is on by default for public repositories.
+
+All third-party actions are pinned to full commit SHAs. Update them deliberately and check the release notes.
+
 ## Folder structure
 
 ```text
