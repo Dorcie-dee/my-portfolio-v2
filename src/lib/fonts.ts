@@ -10,10 +10,13 @@ export const nunitoSans = Nunito_Sans({
   display: "swap",
 });
 
-/** Headings and labels: friendly, squarish letterforms (carried over from Flawless Wears). */
+/**
+ * Headings and labels: friendly, squarish letterforms (carried over from Flawless Wears).
+ * Only the bold weight is used on the site, so only 700 is loaded (avoids an extra preloaded font).
+ */
 export const play = Play({
   variable: "--font-play",
-  weight: ["400", "700"],
+  weight: ["700"],
   subsets: ["latin"],
   display: "swap",
 });
