@@ -15,6 +15,9 @@ concurrency:
 
 env:
   NEXT_TELEMETRY_DISABLED: 1
+  # Public (non-secret) Sanity settings, from GitHub repository Variables.
+  NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+  NEXT_PUBLIC_SANITY_DATASET: ${{ vars.NEXT_PUBLIC_SANITY_DATASET }}
 
 jobs:
   quality:

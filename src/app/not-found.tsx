@@ -1,9 +1,12 @@
 import { ArrowRight } from "lucide-react";
+import { SiteShell } from "@/components/layout/site-shell";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 
+// Rendered for unknown URLs and notFound() calls; it sits outside (site), so it adds the site chrome itself.
 export default function NotFound() {
   return (
+    <SiteShell>
     <section aria-labelledby="not-found-heading" className="surface-base flex-1">
       <Container className="py-section">
         <p className="eyebrow text-accent">Error 404</p>
@@ -24,5 +27,6 @@ export default function NotFound() {
         </div>
       </Container>
     </section>
+    </SiteShell>
   );
 }
