@@ -6,6 +6,9 @@ export const site = {
   role: "Backend-Focused Software Engineer",
   headline:
     "Building reliable backend systems, scalable APIs and practical software solutions.",
+  /** Phrase within the headline that gets the marigold highlight. */
+  headlineHighlight: "reliable backend systems",
+  greeting: "Hello, I'm Dorcas",
   description:
     "Backend-focused software engineer building REST APIs, data models and well-tested server-side systems with Node.js, TypeScript, NestJS and Express.",
   statement:

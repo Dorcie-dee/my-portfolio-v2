@@ -6,7 +6,7 @@ import { QuickFacts } from "./quick-facts";
 
 export function Intro() {
   return (
-    <section id="about" aria-labelledby="about-heading" className="surface-light py-section">
+    <section id="about" aria-labelledby="about-heading" className="surface-paper py-section">
       <Container className="grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-16">
         <div>
           <SectionHeading id="about-heading" eyebrow="About" title="Backend first, and across the stack when it counts." />
@@ -24,7 +24,7 @@ export function Intro() {
           </div>
           <Link
             href="/about"
-            className="mt-6 inline-flex items-center gap-1 font-medium text-accent underline-offset-4 hover:underline"
+            className="mt-6 inline-flex items-center gap-1 font-bold text-accent underline-offset-4 hover:underline"
           >
             More about me
             <ArrowRight className="size-4" aria-hidden="true" />

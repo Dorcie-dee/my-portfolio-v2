@@ -67,7 +67,7 @@ export default function ContactPage() {
         </p>
       </PageHeader>
 
-      <section aria-label="Ways to get in touch" className="surface-light py-section">
+      <section aria-label="Ways to get in touch" className="surface-paper py-section">
         <Container>
           <ul className="grid gap-4 sm:grid-cols-2">
             {channels.map((channel) => (
@@ -75,14 +75,14 @@ export default function ContactPage() {
                 <a
                   href={channel.href}
                   {...(channel.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="group flex h-full items-center gap-4 rounded-lg border border-line bg-surface-raised p-6 transition-colors hover:border-accent"
+                  className="group flex h-full items-center gap-4 rounded-2xl border-2 border-outline bg-surface-raised p-6 transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-stamp"
                 >
-                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-md border border-line text-accent">
+                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-lilac text-violet">
                     {channel.icon}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block font-mono text-xs text-fg-muted">{channel.label}</span>
-                    <span className="mt-0.5 block truncate font-medium">{channel.value}</span>
+                    <span className="eyebrow block text-fg-muted">{channel.label}</span>
+                    <span className="mt-0.5 block truncate font-bold">{channel.value}</span>
                   </span>
                   <ArrowUpRight
                     className="size-5 text-fg-muted transition-colors group-hover:text-accent"
@@ -95,11 +95,11 @@ export default function ContactPage() {
           </ul>
 
           <div className="mt-12 max-w-prose-narrow">
-            <h2 className="text-2xl font-semibold">Good reasons to get in touch</h2>
+            <h2 className="text-2xl text-plum">Good reasons to get in touch</h2>
             <ul className="mt-4 space-y-3 text-lg leading-relaxed text-fg-muted">
               {reasons.map((reason) => (
                 <li key={reason} className="flex gap-3">
-                  <span className="mt-3 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                  <span className="mt-3 size-1.5 shrink-0 rotate-45 bg-violet" aria-hidden="true" />
                   {reason}
                 </li>
               ))}

@@ -10,12 +10,14 @@ type ButtonLinkProps = {
   className?: string;
 };
 
+// Primary buttons sit on a solid offset shadow and press into it when clicked.
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-medium transition-colors";
+  "inline-flex items-center justify-center gap-2 rounded-xl border-2 border-outline px-5 py-3 text-sm font-bold transition-[transform,box-shadow,background-color] duration-150";
 
 const variants = {
-  primary: "bg-accent text-accent-contrast hover:opacity-90",
-  secondary: "border border-line text-fg hover:border-fg-muted hover:bg-surface-raised",
+  primary:
+    "bg-accent text-accent-contrast shadow-stamp hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--color-plum)] active:translate-x-1 active:translate-y-1 active:shadow-none",
+  secondary: "bg-transparent text-fg hover:bg-surface-raised",
 };
 
 export function ButtonLink({

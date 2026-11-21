@@ -16,35 +16,40 @@ export function RoleCard({ role, as: Heading = "h3" }: RoleCardProps) {
   return (
     <article
       aria-labelledby={headingId}
-      className={`grid gap-8 rounded-lg border border-line bg-surface-raised p-6 sm:p-8 ${
-        hasDetail ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-12" : ""
+      className={`grid gap-8 rounded-3xl border-2 border-outline bg-surface-raised p-6 sm:p-8 ${
+        hasDetail
+          ? "shadow-[10px_10px_0_var(--color-marigold)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-12"
+          : "shadow-stamp-lg"
       }`}
     >
       <div>
         <div className="flex items-center gap-3">
-          <span className="inline-flex size-10 items-center justify-center rounded-md border border-line text-accent" aria-hidden="true">
+          <span
+            className="inline-flex size-11 items-center justify-center rounded-xl bg-lilac text-violet"
+            aria-hidden="true"
+          >
             <Icon className="size-5" />
           </span>
-          <span className="font-mono text-xs text-fg-muted">{role.kind}</span>
+          <span className="eyebrow text-fg-muted">{role.kind}</span>
         </div>
-        <Heading id={headingId} className="mt-5 text-2xl font-semibold">
+        <Heading id={headingId} className="mt-5 text-2xl text-plum">
           {role.title}
         </Heading>
-        <p className="mt-1 text-lg">{role.organisation}</p>
-        <p className="mt-2 font-mono text-sm text-fg-muted">
+        <p className="mt-1 text-lg font-semibold">{role.organisation}</p>
+        <p className="mt-3 inline-flex rounded-full bg-butter px-3 py-1 text-sm font-bold text-ink">
           <time dateTime={role.startDate}>{role.start}</time>
-          {role.end ? ` – ${role.end}` : null}
+          {role.end ? <>&nbsp;– {role.end}</> : null}
         </p>
         {role.summary ? <p className="mt-6 leading-relaxed text-fg-muted">{role.summary}</p> : null}
       </div>
 
       {hasDetail ? (
         <div>
-          <p className="font-mono text-xs text-fg-muted">What I contribute</p>
+          <p className="eyebrow text-accent">What I contribute</p>
           <ul className="mt-4 space-y-3">
             {role.contributions?.map((item) => (
               <li key={item} className="flex gap-3 leading-relaxed">
-                <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                <span className="mt-2.5 size-1.5 shrink-0 rotate-45 bg-violet" aria-hidden="true" />
                 {item}
               </li>
             ))}

@@ -3,23 +3,24 @@ import { ProjectCard } from "./project-card";
 
 /** Featured project full width, then the rest in a responsive grid. */
 export function ProjectGrid() {
-  const featured = projects.filter((project) => project.featured);
-  const others = projects.filter((project) => !project.featured);
+  const indexed = projects.map((project, index) => ({ project, index }));
+  const featured = indexed.filter(({ project }) => project.featured);
+  const others = indexed.filter(({ project }) => !project.featured);
 
   return (
-    <div className="space-y-6">
-      {featured.map((project) => (
-        <ProjectCard key={project.slug} project={project} />
+    <div className="space-y-10">
+      {featured.map(({ project, index }) => (
+        <ProjectCard key={project.slug} project={project} index={index} />
       ))}
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {others.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+      <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        {others.map(({ project, index }) => (
+          <ProjectCard key={project.slug} project={project} index={index} />
         ))}
       </div>
 
       <p className="text-xs text-fg-muted">
-        Project visuals are illustrative and are not application screenshots.
+        Project panels are illustrative graphics, not application screenshots.
       </p>
     </div>
   );

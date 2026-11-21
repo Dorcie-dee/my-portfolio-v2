@@ -4,10 +4,10 @@ import { Container } from "@/components/ui/container";
 
 export default function NotFound() {
   return (
-    <section aria-labelledby="not-found-heading" className="surface-dark flex-1">
+    <section aria-labelledby="not-found-heading" className="surface-base flex-1">
       <Container className="py-section">
-        <p className="font-mono text-sm text-accent">404</p>
-        <h1 id="not-found-heading" className="mt-3 text-headline font-semibold">
+        <p className="eyebrow text-accent">Error 404</p>
+        <h1 id="not-found-heading" className="mt-4 text-display text-plum">
           Page not found
         </h1>
         <p className="mt-4 max-w-prose-narrow text-lg text-fg-muted">

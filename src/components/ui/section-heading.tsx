@@ -9,13 +9,16 @@ type SectionHeadingProps = {
 
 export function SectionHeading({ id, eyebrow, title, children }: SectionHeadingProps) {
   return (
-    <div className="max-w-prose-narrow">
-      <p className="font-mono text-sm text-accent">{eyebrow}</p>
-      <h2 id={id} className="mt-3 text-headline font-semibold text-balance">
+    <div className="max-w-3xl">
+      <p className="eyebrow flex items-center gap-3 text-accent">
+        <span className="stripe h-1.5 w-[60px] shrink-0 rounded-full" aria-hidden="true" />
+        {eyebrow}
+      </p>
+      <h2 id={id} className="mt-4 text-headline text-balance">
         {title}
       </h2>
       {children ? (
-        <div className="mt-4 text-lg leading-relaxed text-fg-muted">{children}</div>
+        <div className="mt-4 max-w-prose-narrow text-lg leading-relaxed text-fg-muted">{children}</div>
       ) : null}
     </div>
   );

@@ -6,7 +6,7 @@ import { ProjectGrid } from "./project-grid";
 
 export function SelectedProjects() {
   return (
-    <section id="projects" aria-labelledby="projects-heading" className="surface-light py-section">
+    <section id="projects" aria-labelledby="projects-heading" className="surface-base py-section">
       <Container>
         <SectionHeading
           id="projects-heading"
@@ -14,11 +14,11 @@ export function SelectedProjects() {
           title="Practical software, from live event ticketing to everyday business tools."
         />
 
-        <div className="mt-12">
+        <div className="mt-14">
           <ProjectGrid />
         </div>
 
-        <ButtonLink href="/projects" variant="secondary" className="mt-8">
+        <ButtonLink href="/projects" variant="secondary" className="mt-10">
           All projects
           <ArrowRight className="size-4" aria-hidden="true" />
         </ButtonLink>

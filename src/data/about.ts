@@ -1,4 +1,5 @@
 import { currentRole } from "./experience";
+import { getProject } from "./projects";
 
 export const bio: string[] = [
   `I'm a backend-focused software engineer, currently working as a ${currentRole.title} at ${currentRole.organisation}. There I'm part of the engineering team working on healthcare-related applications and integrations.`,
@@ -35,4 +36,15 @@ export const quickFacts = [
   { term: "Core stack", detail: "Node.js · TypeScript · NestJS · Express" },
   { term: "Data", detail: "PostgreSQL · MongoDB" },
   { term: "Quality", detail: "Jest · Supertest · Swagger/OpenAPI" },
+];
+
+const fmp = getProject("fmp-ticketing-system");
+const harvest = getProject("harvest-bridge");
+
+/** The hero's "Right now" card. Each line restates facts held elsewhere in src/data. */
+export const rightNow: { label: string; detail: string }[] = [
+  { label: "Role", detail: `${currentRole.title}, ${currentRole.organisation}` },
+  ...(fmp ? [{ label: "Shipped", detail: `${fmp.name}, used at a live concert` }] : []),
+  ...(harvest ? [{ label: "Building", detail: `${harvest.name}, connecting farmers and job seekers` }] : []),
+  { label: "Core stack", detail: "Node.js · TypeScript · NestJS · PostgreSQL" },
 ];

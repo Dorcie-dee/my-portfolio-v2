@@ -1,52 +1,52 @@
 @import "tailwindcss";
 
 /*
- * Design tokens
- * -------------
- * 1. Raw palette (@theme): fixed colours. Prefer the semantic tokens below in components.
+ * Design tokens: "Plum & Marigold"
+ * --------------------------------
+ * 1. Raw palette (@theme): fixed brand colours. Prefer the semantic tokens in components.
  * 2. Semantic tokens (@theme inline): resolve per section via the surface classes,
- *    so one component renders correctly on dark, light and muted sections.
+ *    so one component renders correctly on every surface.
  *
  * Contrast (WCAG 2.x) for every text/accent pair is recorded in docs/design-system.md.
  */
 
 @theme {
   /* Raw palette */
-  --color-navy-950: #0b1220;
-  --color-navy-900: #131c2e;
-  --color-navy-800: #22304a;
-  --color-navy-300: #a3acbd;
-
-  --color-cream-50: #faf8f3;
-  --color-sand-50: #f7f6f2;
-  --color-sand-100: #eeece7;
-  --color-sand-300: #d6d3cc;
-
-  --color-ink-900: #111827;
-  --color-ink-600: #525b6b;
-
-  --color-accent-lime: #b5e655;
-  --color-accent-green: #3f6212;
+  --color-ivory: #fffaf3;
+  --color-lilac: #f3ecfb;
+  --color-lilac-line: #dccbf0;
+  --color-butter: #fff3d9;
+  --color-marigold: #f4b740;
+  --color-violet: #6a2bc4;
+  --color-violet-deep: #5420a8;
+  --color-plum: #2e1a47;
+  --color-plum-raised: #3b2559;
+  --color-ink: #2a1740;
+  --color-muted: #5e5470;
 
   /* Layout widths: max-w-content, max-w-prose-narrow */
   --container-content: 72rem;
   --container-prose-narrow: 44rem;
 
   /* Vertical rhythm for page sections: py-section */
-  --spacing-section: clamp(4rem, 8vw, 8rem);
+  --spacing-section: clamp(4rem, 8vw, 7.5rem);
 
   /* Fluid display sizes (Tailwind's default scale covers body and UI text) */
   --text-display: clamp(2.25rem, 3vw + 1.25rem, 3.75rem);
-  --text-display--line-height: 1.05;
-  --text-display--letter-spacing: -0.025em;
-  --text-headline: clamp(1.875rem, 2vw + 1.25rem, 3rem);
-  --text-headline--line-height: 1.15;
-  --text-headline--letter-spacing: -0.02em;
+  --text-display--line-height: 1.06;
+  --text-display--letter-spacing: -0.01em;
+  --text-headline: clamp(1.75rem, 2vw + 1.1rem, 2.75rem);
+  --text-headline--line-height: 1.12;
+  --text-headline--letter-spacing: -0.01em;
+
+  /* Offset "stamp" shadows: shadow-stamp, shadow-stamp-lg */
+  --shadow-stamp: 4px 4px 0 var(--color-plum);
+  --shadow-stamp-lg: 8px 8px 0 var(--color-plum);
 }
 
 @theme inline {
   /* Semantic colours: bg-surface, bg-surface-raised, text-fg, text-fg-muted,
-     text-accent, bg-accent, text-accent-contrast, border-line */
+     text-accent, bg-accent, text-accent-contrast, border-line, border-outline */
   --color-surface: var(--surface-bg);
   --color-surface-raised: var(--surface-raised);
   --color-fg: var(--surface-fg);
@@ -54,56 +54,87 @@
   --color-accent: var(--surface-accent);
   --color-accent-contrast: var(--surface-accent-contrast);
   --color-line: var(--surface-line);
+  --color-outline: var(--surface-outline);
 
   /* Typography from next/font (src/lib/fonts.ts) */
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-sans: var(--font-nunito-sans), Verdana, ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-play), var(--font-nunito-sans), Verdana, sans-serif;
 }
 
 /*
  * Surfaces
  * --------
- * Apply one class per section: surface-light (default), surface-dark or surface-muted.
- * Light values are also set on :root so content outside a section is styled.
+ * One class per section: surface-base (default, ivory), surface-paper (white),
+ * surface-lilac, surface-butter or surface-plum (footer only).
+ * Base values are also set on :root so content outside a section is styled.
  */
 @layer base {
   :root,
-  .surface-light {
-    --surface-bg: var(--color-cream-50);
+  .surface-base {
+    --surface-bg: var(--color-ivory);
     --surface-raised: #ffffff;
-    --surface-fg: var(--color-ink-900);
-    --surface-fg-muted: var(--color-ink-600);
-    --surface-accent: var(--color-accent-green);
-    --surface-accent-contrast: var(--color-cream-50);
-    --surface-line: var(--color-sand-300);
+    --surface-fg: var(--color-ink);
+    --surface-fg-muted: var(--color-muted);
+    --surface-accent: var(--color-violet);
+    --surface-accent-contrast: #ffffff;
+    --surface-line: #e6daf3;
+    --surface-outline: var(--color-plum);
     color-scheme: light;
   }
 
-  .surface-muted {
-    --surface-bg: var(--color-sand-100);
-    --surface-raised: var(--color-sand-50);
-    --surface-fg: var(--color-ink-900);
-    --surface-fg-muted: var(--color-ink-600);
-    --surface-accent: var(--color-accent-green);
-    --surface-accent-contrast: var(--color-cream-50);
-    --surface-line: var(--color-sand-300);
+  .surface-paper {
+    --surface-bg: #ffffff;
+    --surface-raised: var(--color-ivory);
+    --surface-fg: var(--color-ink);
+    --surface-fg-muted: var(--color-muted);
+    --surface-accent: var(--color-violet);
+    --surface-accent-contrast: #ffffff;
+    --surface-line: #e6daf3;
+    --surface-outline: var(--color-plum);
     color-scheme: light;
   }
 
-  .surface-dark {
-    --surface-bg: var(--color-navy-950);
-    --surface-raised: var(--color-navy-900);
-    --surface-fg: #f5f3ee;
-    --surface-fg-muted: var(--color-navy-300);
-    --surface-accent: var(--color-accent-lime);
-    --surface-accent-contrast: var(--color-navy-950);
-    --surface-line: var(--color-navy-800);
+  .surface-lilac {
+    --surface-bg: var(--color-lilac);
+    --surface-raised: #ffffff;
+    --surface-fg: var(--color-ink);
+    --surface-fg-muted: var(--color-muted);
+    --surface-accent: var(--color-violet);
+    --surface-accent-contrast: #ffffff;
+    --surface-line: var(--color-lilac-line);
+    --surface-outline: var(--color-plum);
+    color-scheme: light;
+  }
+
+  .surface-butter {
+    --surface-bg: var(--color-butter);
+    --surface-raised: #ffffff;
+    --surface-fg: var(--color-ink);
+    --surface-fg-muted: var(--color-muted);
+    --surface-accent: var(--color-violet);
+    --surface-accent-contrast: #ffffff;
+    --surface-line: #efdcb0;
+    --surface-outline: var(--color-plum);
+    color-scheme: light;
+  }
+
+  .surface-plum {
+    --surface-bg: var(--color-plum);
+    --surface-raised: var(--color-plum-raised);
+    --surface-fg: var(--color-ivory);
+    --surface-fg-muted: #d9c8f2;
+    --surface-accent: var(--color-marigold);
+    --surface-accent-contrast: var(--color-plum);
+    --surface-line: #4a3268;
+    --surface-outline: var(--color-marigold);
     color-scheme: dark;
   }
 
-  .surface-light,
-  .surface-muted,
-  .surface-dark {
+  .surface-base,
+  .surface-paper,
+  .surface-lilac,
+  .surface-butter,
+  .surface-plum {
     background-color: var(--surface-bg);
     color: var(--surface-fg);
   }
@@ -113,21 +144,67 @@
     color: var(--surface-fg);
   }
 
-  /* Keep anchored sections clear of the sticky 4rem header */
-  [id] {
-    scroll-margin-top: 5rem;
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
   }
 
-  /* Visible keyboard focus on every surface (accent is >= 6:1 against each background) */
+  /* Keep anchored sections clear of the sticky header */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  /* Visible keyboard focus on every surface (accent is >= 7:1 against each background) */
   :focus-visible {
     outline: 2px solid var(--surface-accent);
     outline-offset: 3px;
   }
 
   ::selection {
-    background-color: var(--surface-accent);
-    color: var(--surface-accent-contrast);
+    background-color: var(--color-violet);
+    color: #ffffff;
   }
+}
+
+/* Small uppercase label set in the display face, e.g. section eyebrows */
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Signature woven stripe in plum, violet, marigold and lilac. Decorative only. */
+@utility stripe {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--color-plum) 0 28px,
+    var(--color-violet) 28px 44px,
+    var(--color-marigold) 44px 60px,
+    var(--color-lilac) 60px 68px
+  );
+}
+
+/* Marigold highlighter behind a phrase */
+@utility highlight {
+  background-image: linear-gradient(
+    transparent 62%,
+    var(--color-marigold) 62%,
+    var(--color-marigold) 92%,
+    transparent 92%
+  );
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Dot grid used inside decorative project panels */
+@utility dot-pattern {
+  background-image: radial-gradient(currentColor 1.75px, transparent 2.25px);
+  background-size: 16px 16px;
 }
 
 /* Motion: smooth scrolling only when the user has not asked for reduced motion */

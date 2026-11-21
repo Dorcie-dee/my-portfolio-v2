@@ -1,119 +1,114 @@
-# Design system foundation
+# Design system: "Plum & Marigold"
 
-Status: **initial draft.** Refine it before page implementation begins.
+Status: **current identity** (replaces the earlier navy-and-lime foundation).
 
 All tokens are defined in [`src/app/globals.css`](../src/app/globals.css). Fonts are loaded in [`src/lib/fonts.ts`](../src/lib/fonts.ts).
 
-## 1. Hybrid surfaces
+## 1. Direction
 
-Pages alternate dark and light sections. This is a layout choice, not a dark mode, so there is no theme toggle and no `prefers-color-scheme` switching.
+The identity continues the owner's existing visual signature instead of starting from a neutral template:
 
-Each section declares **one** surface class:
+- **Purple** from the previous portfolio (`#9F00FF` accent, `#4F3274` hero), deepened so it meets WCAG AA on light backgrounds.
+- **Play** headings from the Flawless Wears project: squarish but friendly letterforms, technical without feeling futuristic.
+- **Warmth** from Flawless Wears' Afrocentric character, expressed as a restrained **woven stripe** (plum, violet, marigold, lilac) and a marigold highlight.
 
-| Class | Use |
-| --- | --- |
-| `surface-light` | Default (also applied to `<body>` and `:root`). Warm off-white. |
-| `surface-dark` | Deep navy feature sections |
-| `surface-muted` | Neutral grey secondary sections |
+Principles: warm light pages instead of grey or white, colour used deliberately, bold outlines and solid offset ("stamp") shadows instead of gradients, glass or glow effects, and typography doing most of the work.
 
-A surface class sets the background, text colour, `color-scheme` (for native scrollbars and controls) and a set of CSS variables. Components use **semantic** utilities that read those variables, so the same component renders correctly on any surface:
+## 2. Typography
 
-```tsx
-<section className="surface-dark py-section">
-  <div className="mx-auto max-w-content px-4 sm:px-6 lg:px-8">
-    <h2 className="text-headline text-fg">…</h2>
-    <p className="text-fg-muted">…</p>
-    <a className="text-accent">…</a>
-  </div>
-</section>
-```
+| Role | Font | Notes |
+| --- | --- | --- |
+| Headings (`h1`–`h3`), eyebrow labels | **Play** 700 (`font-display`) | Applied to `h1`–`h3` in the base layer |
+| Body and UI | **Nunito Sans** (`font-sans`) | Large x-height and Verdana-like readability; Verdana is the fallback |
 
-Surfaces can be nested. For example, a `surface-dark` card inside a light section works without any changes.
+Both fonts are self-hosted via `next/font`, with no runtime requests to Google. Monospace is intentionally not used.
 
-## 2. Colour
+**Scale:** use Tailwind's default scale for body and UI text, plus:
 
-### Semantic tokens (use these in components)
+| Utility | Size | Line height |
+| --- | --- | --- |
+| `text-display` | `clamp(2.25rem, 3vw + 1.25rem, 3.75rem)` | 1.06 |
+| `text-headline` | `clamp(1.75rem, 2vw + 1.1rem, 2.75rem)` | 1.12 |
+| `eyebrow` (utility) | 0.8125rem, uppercase, 0.14em tracking, Play 700 | 1.4 |
 
-| Utility | Light | Muted | Dark |
-| --- | --- | --- | --- |
-| `bg-surface` | `#FAF8F3` | `#EEECE7` | `#0B1220` |
-| `bg-surface-raised` | `#FFFFFF` | `#F7F6F2` | `#131C2E` |
-| `text-fg` | `#111827` | `#111827` | `#F5F3EE` |
-| `text-fg-muted` | `#525B6B` | `#525B6B` | `#A3ACBD` |
-| `text-accent` / `bg-accent` | `#3F6212` (deep green) | `#3F6212` | `#B5E655` (lime) |
-| `text-accent-contrast` (text on accent) | `#FAF8F3` | `#FAF8F3` | `#0B1220` |
-| `border-line` | `#D6D3CC` | `#D6D3CC` | `#22304A` |
+## 3. Colour
 
-The accent changes per surface on purpose. Lime on off-white is about 1.4:1, which fails WCAG, so light surfaces use a deep green from the same hue family.
+### Palette
 
-### Raw palette
+| Token | Hex | Use |
+| --- | --- | --- |
+| `ivory` | `#FFFAF3` | Default page background |
+| white | `#FFFFFF` | Cards; `surface-paper` sections |
+| `lilac` | `#F3ECFB` | Alternate sections, tags, soft shadows |
+| `butter` | `#FFF3D9` | Contact band, in-progress status, date pills |
+| `marigold` | `#F4B740` | Highlights, project panels, accent on plum |
+| `violet` | `#6A2BC4` | Primary buttons, links, active navigation |
+| `violet-deep` | `#5420A8` | Hover state for violet fills |
+| `plum` | `#2E1A47` | Outlines, stamp shadows, headings, footer |
+| `ink` | `#2A1740` | Body text |
+| `muted` | `#5E5470` | Secondary text |
 
-Available as utilities (for example `bg-navy-950`), but use them only when a semantic token does not fit:
+### Surfaces
 
-`navy-950 #0B1220`, `navy-900 #131C2E`, `navy-800 #22304A`, `navy-300 #A3ACBD`, `cream-50 #FAF8F3`, `sand-50 #F7F6F2`, `sand-100 #EEECE7`, `sand-300 #D6D3CC`, `ink-900 #111827`, `ink-600 #525B6B`, `accent-lime #B5E655`, `accent-green #3F6212`.
+Each section uses **one** surface class. Components use the semantic utilities (`bg-surface`, `bg-surface-raised`, `text-fg`, `text-fg-muted`, `text-accent`, `bg-accent`, `text-accent-contrast`, `border-line`, `border-outline`), so they adapt to any surface automatically.
+
+| Class | Background | Raised | Accent | Use |
+| --- | --- | --- | --- | --- |
+| `surface-base` | ivory | white | violet | Default, hero, page headers |
+| `surface-paper` | white | ivory | violet | Content sections |
+| `surface-lilac` | lilac | white | violet | Technical focus, earlier projects |
+| `surface-butter` | butter | white | violet | Contact invitation |
+| `surface-plum` | plum | `#3B2559` | marigold | Footer only |
+
+**Homepage rhythm:** ivory hero → white about → lilac technical focus → ivory projects → white experience → butter contact → plum footer.
 
 ### Measured contrast (WCAG 2.x)
 
 | Pair | Ratio | Level |
 | --- | --- | --- |
-| Dark: text on background | 16.88:1 | AAA |
-| Dark: muted text on background | 8.20:1 | AAA |
-| Dark: accent on background | 12.85:1 | AAA |
-| Dark: muted text on raised | 7.45:1 | AAA |
-| Light: text on background | 16.71:1 | AAA |
-| Light: muted text on background | 6.45:1 | AA |
-| Light: accent on background | 6.67:1 | AA |
-| Muted: text on background | 15.03:1 | AAA |
-| Muted: muted text on background | 5.80:1 | AA |
-| Muted: accent on background | 5.99:1 | AA |
-| Lime button: navy text | 12.85:1 | AAA |
-| Green button: cream text | 6.67:1 | AA |
+| Ink on ivory | 15.61:1 | AAA |
+| Muted on ivory | 6.79:1 | AA |
+| Violet on ivory | 7.34:1 | AAA |
+| Muted on white | 7.05:1 | AAA |
+| Ink on lilac | 14.06:1 | AAA |
+| Muted on lilac | 6.11:1 | AA |
+| Violet on lilac | 6.61:1 | AA |
+| Muted on butter | 6.40:1 | AA |
+| Violet on butter | 6.92:1 | AA |
+| White text on violet | 7.62:1 | AAA |
+| White text on violet-deep | 9.77:1 | AAA |
+| Ink text on marigold | 9.03:1 | AAA |
+| Ivory on plum | 14.92:1 | AAA |
+| Lilac text (`#D9C8F2`) on plum | 9.96:1 | AAA |
+| Marigold on plum | 8.63:1 | AAA |
+| Muted (plum surface) on plum-raised | 8.46:1 | AAA |
 
-Borders (`border-line`) are decorative and are not required to meet the 3:1 non-text contrast ratio. Do not use a border as the only indicator of state.
+The project panel combinations (plum on marigold, white on violet, plum on lilac, marigold on plum) are 7.6:1 or higher.
 
-## 3. Typography
+## 4. Signature details
 
-- **Sans:** Geist (`font-sans`, the default)
-- **Mono:** Geist Mono (`font-mono`), for code, technical labels and metadata
+- **Woven stripe** (`stripe` utility): a band at the top of the header, the footer and key cards, and a 60px mark before each eyebrow label. Decorative and `aria-hidden`.
+- **Highlight** (`highlight` utility): a marigold band behind one phrase of the hero headline only.
+- **Stamp shadows:** `shadow-stamp` (4px plum) on primary buttons, which press in on click, and `shadow-stamp-lg` (8px plum) on cards. Lilac, violet or marigold variants mark emphasis (featured project, experience).
+- **Outlines:** cards and buttons use a 2px `border-outline` (plum).
+- **Project panels:** colour-blocked graphics that cycle marigold → violet → lilac → plum (`src/lib/project-tone.ts`), with a numbered label, a dot pattern (`dot-pattern` utility) and the project monogram. They are labelled on the page as illustrative, never screenshots, and hidden from assistive technology.
+- **Navigation:** the current page shows as a violet pill (`aria-current="page"`), with nested routes matching their section.
+- **Bullets:** small rotated violet squares.
 
-Both are self-hosted through `next/font` with `display: swap`.
+## 5. Layout and spacing
 
-**Scale:** use Tailwind's default scale (`text-sm` … `text-5xl`) for body and UI text, plus two fluid sizes for large headings:
+- **Spacing:** Tailwind's 4px scale. Section rhythm is `py-section` = `clamp(4rem, 8vw, 7.5rem)`.
+- **Widths:** `max-w-content` (72rem); `max-w-prose-narrow` (44rem) for reading.
+- **Gutters:** `px-4 sm:px-6 lg:px-8` via `Container`.
+- **Radii:** `rounded-xl` for buttons, `rounded-2xl`/`rounded-3xl` for cards, `rounded-full` for pills and tags.
+- **Breakpoints:** Tailwind defaults (`sm` 40rem, `md` 48rem, `lg` 64rem, `xl` 80rem). Design mobile-first.
 
-| Utility | Size | Line height | Tracking |
-| --- | --- | --- | --- |
-| `text-display` | `clamp(2.25rem, 3vw + 1.25rem, 3.75rem)` | 1.05 | -0.025em |
-| `text-headline` | `clamp(1.875rem, 2vw + 1.25rem, 3rem)` | 1.15 | -0.02em |
+## 6. Accessibility
 
-## 4. Spacing and layout
+- **Focus:** a 2px `:focus-visible` outline in the surface accent (violet, or marigold on plum), offset by 3px. It is at least 7:1 against every background.
+- **Reduced motion:** smooth scrolling only under `prefers-reduced-motion: no-preference`. Under `reduce`, transitions (button press and card lift) are effectively turned off.
+- **Decorative elements** (stripes, panels, dots) are `aria-hidden`. Status and meaning are always also conveyed as text.
 
-- **Spacing:** Tailwind's 4px-based scale.
-- **Section rhythm:** `py-section` = `clamp(4rem, 8vw, 8rem)`.
-- **Content width:** `max-w-content` = 72rem.
-- **Reading width:** `max-w-prose-narrow` = 44rem.
-- **Horizontal gutter (convention):** `px-4 sm:px-6 lg:px-8`.
-- **Breakpoints:** Tailwind defaults (`sm` 40rem, `md` 48rem, `lg` 64rem, `xl` 80rem, `2xl` 96rem). Design mobile-first.
+## 7. Open decisions
 
-## 5. Accessibility
-
-- **Focus:** all focusable elements get a 2px `:focus-visible` outline in the surface's accent colour, offset by 3px. The accent is at least 6:1 against every background. Do not remove outlines without providing an equal or stronger alternative.
-- **Reduced motion:** smooth scrolling is enabled only under `prefers-reduced-motion: no-preference`. Under `reduce`, animations and transitions are effectively turned off globally.
-- **Selection:** text selection uses the accent and accent-contrast pair.
-
-## 6. Decisions
-
-### Confirmed
-
-1. **Accent colours.** Lime `#B5E655` on dark surfaces and deep green `#3F6212` on light and muted surfaces.
-2. **Existing identity.** Echo it subtly without copying the old portfolio design.
-3. **Default Tailwind palette.** It stays available, for example for status colours. Use the semantic tokens for the main interface.
-
-### Still open
-
-1. **Component radius and elevation.** Components currently use Tailwind's `rounded-md`/`rounded-lg` without shadows. Formalise tokens if more variation is needed.
-
-### Applied on the homepage
-
-- **Identity echo:** a "DNQ" monogram and an uppercase name wordmark (a nod to the previous site's uppercase name header), in Geist Mono and the accent colour.
-- **Section order and surfaces:** header (dark) → hero (dark) → about (light) → technical focus (muted) → selected projects (light) → experience (dark) → contact (light) → footer (dark).
-- **Project visuals:** abstract navy panels with a grid pattern and the project monogram. They are decorative (`aria-hidden`), labelled on the page as illustrative, and never presented as screenshots.
+1. **Photo:** none for now. A real photo can be added to `public/images/` and placed in the hero or on the About page.

@@ -22,7 +22,7 @@ export default function ExperiencePage() {
         </p>
       </PageHeader>
 
-      <section aria-label="Roles" className="surface-light py-section">
+      <section aria-label="Roles" className="surface-paper py-section">
         <Container>
           <ol className="space-y-6">
             {roles.map((role) => (
@@ -34,7 +34,7 @@ export default function ExperiencePage() {
         </Container>
       </section>
 
-      <ContactCta surface="muted" />
+      <ContactCta />
     </>
   );
 }

@@ -4,7 +4,7 @@ Personal portfolio of **Dorcas Nyamekye Quaye**, a backend-focused software engi
 
 It is written for recruiters, employers, freelance clients and potential collaborators. It will show practical engineering experience, backend development, full-stack projects and problem solving.
 
-The visual direction is hybrid: dark and light sections alternate on the same page. This is not a user-controlled dark mode. See [docs/design-system.md](docs/design-system.md).
+The visual identity, "Plum & Marigold", uses warm ivory pages, violet and deep plum, marigold highlights and a woven stripe motif. There is no dark mode toggle. See [docs/design-system.md](docs/design-system.md).
 
 ## Tech stack
 
@@ -14,7 +14,7 @@ The visual direction is hybrid: dark and light sections alternate on the same pa
 | Language | TypeScript (strict) |
 | Styling | Tailwind CSS 4, with design tokens in `src/app/globals.css` |
 | Icons | [Lucide React](https://lucide.dev) |
-| Fonts | Geist and Geist Mono via `next/font` (self-hosted at build time) |
+| Fonts | Play (headings) and Nunito Sans (body) via `next/font` (self-hosted at build time) |
 | Linting | ESLint 9 with `eslint-config-next` |
 | Runtime | Node.js 24 LTS |
 | Package manager | Yarn Classic (1.22.x) |
