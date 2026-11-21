@@ -9,6 +9,8 @@ export const site = {
   /** Phrase within the headline that gets the marigold highlight. */
   headlineHighlight: "reliable backend systems",
   greeting: "Hello, I'm Dorcas",
+  /** Role shown beside the greeting in the hero only; `role` remains the site-wide title. */
+  heroRole: "Backend-Focused Full-Stack Software Developer",
   description:
     "Backend-focused software engineer building REST APIs, data models and well-tested server-side systems with Node.js, TypeScript, NestJS and Express.",
   statement:
