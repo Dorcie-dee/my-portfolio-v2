@@ -10,14 +10,14 @@ import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata = pageMetadata({
   title: "About",
-  description: `About ${site.name}, a backend-focused software engineer working with Node.js, TypeScript, NestJS, PostgreSQL and MongoDB.`,
+  description: `About ${site.name}, a full-stack software engineer with backend expertise, working with Node.js, TypeScript, NestJS, React, PostgreSQL and MongoDB.`,
   path: "/about",
 });
 
 export default function AboutPage() {
   return (
     <>
-      <PageHeader eyebrow="About" title="A backend-focused engineer who builds practical, dependable software.">
+      <PageHeader eyebrow="About" title="A full-stack software engineer with a strong backend focus.">
         <p>{site.availability}</p>
       </PageHeader>
 
