@@ -33,11 +33,10 @@ export const experience = defineType({
     }),
     defineField({
       name: "employmentType",
-      title: "Type",
+      title: "Type (optional)",
       type: "string",
       options: { list: employmentTypes, layout: "dropdown" },
-      initialValue: "fullTime",
-      validation: (rule) => rule.required(),
+      description: "Leave empty if you prefer not to show it.",
     }),
     defineField({ name: "location", title: "Location (optional)", type: "string" }),
     defineField({
