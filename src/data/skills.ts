@@ -4,8 +4,8 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Backend engineering",
     summary: "Server-side applications, REST APIs, authentication and validation.",
-    core: ["Node.js", "TypeScript", "JavaScript", "NestJS", "Express", "REST APIs", "JWT"],
-    familiar: ["Joi", "Zod"],
+    core: ["Node.js", "TypeScript", "JavaScript", "NestJS", "Express", "REST APIs", "JWT", "Joi"],
+    familiar: ["Zod"],
   },
   {
     title: "Databases",
