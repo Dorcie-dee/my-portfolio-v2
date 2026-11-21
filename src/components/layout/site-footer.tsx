@@ -63,7 +63,7 @@ export function SiteFooter() {
         </div>
 
         <p className="mt-12 border-t border-line pt-6 text-xs text-fg-muted">
-          © {year} {site.name}
+          © {year} {site.name}. All rights reserved.
         </p>
       </Container>
     </footer>

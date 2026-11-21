@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { BackToTop } from "@/components/ui/back-to-top";
 import { site } from "@/data/site";
 import { nunitoSans, play } from "@/lib/fonts";
 import { getSiteUrl } from "@/lib/site-url";
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <BackToTop />
       </body>
     </html>
   );
