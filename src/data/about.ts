@@ -27,7 +27,15 @@ export const focusAreas: { title: string; description: string }[] = [
 ];
 
 /** From the owner's public GitHub profile. */
-export const interests = ["Agri-tech", "AI-assisted development", "Microlearning", "Automation"];
+export const interests = [
+  "Agri-tech",
+  "Health-tech",
+  "EdTech",
+  "Cybersecurity",
+  "AI-assisted development",
+  "Microlearning",
+  "Automation",
+];
 
 /** Short facts shown beside the introduction on the homepage and the About page. */
 export const quickFacts = [
