@@ -3,7 +3,7 @@ import { rightNow } from "@/data/about";
 import { site } from "@/data/site";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
-import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
+import { DevToIcon, GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
 
 const socialClass =
   "inline-flex size-11 items-center justify-center rounded-xl text-fg transition-colors hover:bg-lilac hover:text-accent";
@@ -55,6 +55,10 @@ export function Hero() {
               <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className={socialClass}>
                 <LinkedInIcon />
                 <span className="sr-only">LinkedIn profile (opens in a new tab)</span>
+              </a>
+              <a href={site.devto} target="_blank" rel="noopener noreferrer" className={socialClass}>
+                <DevToIcon />
+                <span className="sr-only">DEV Community profile (opens in a new tab)</span>
               </a>
             </span>
           </div>

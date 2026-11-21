@@ -1,7 +1,7 @@
 import { FileText, Mail } from "lucide-react";
 import { site } from "@/data/site";
 import { Container } from "@/components/ui/container";
-import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
+import { DevToIcon, GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
 
 const linkClass =
   "inline-flex items-center gap-2 text-sm font-semibold text-fg transition-colors hover:text-accent";
@@ -45,6 +45,12 @@ export function SiteFooter() {
               <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className={linkClass}>
                 <LinkedInIcon className="size-4" />
                 LinkedIn<span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a href={site.devto} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                <DevToIcon className="size-4" />
+                DEV<span className="sr-only"> Community (opens in a new tab)</span>
               </a>
             </li>
             <li>

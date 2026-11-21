@@ -1,7 +1,7 @@
 import { ArrowUpRight, FileText, Mail } from "lucide-react";
 import type { ReactNode } from "react";
 import { PageHeader } from "@/components/sections/page-header";
-import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
+import { DevToIcon, GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
 import { Container } from "@/components/ui/container";
 import { site } from "@/data/site";
 import { pageMetadata } from "@/lib/page-metadata";
@@ -43,6 +43,13 @@ const channels: Channel[] = [
     external: true,
   },
   {
+    label: "DEV Community",
+    value: "dorcie-dee",
+    href: site.devto,
+    icon: <DevToIcon />,
+    external: true,
+  },
+  {
     label: "CV",
     value: "View my CV",
     href: site.cv,
@@ -63,7 +70,7 @@ export default function ContactPage() {
       <PageHeader eyebrow="Contact" title="Let's talk about engineering roles, projects or collaborations.">
         <p>
           {site.availability} Email is the quickest way to reach me. I&apos;m also happy to
-          connect on LinkedIn.
+          connect on LinkedIn, and I write on DEV.
         </p>
       </PageHeader>
 

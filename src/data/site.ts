@@ -17,6 +17,7 @@ export const site = {
   email: "dorcasnquaye28@gmail.com",
   github: "https://github.com/Dorcie-dee",
   linkedin: "https://www.linkedin.com/in/dorcasnyamekyequaye",
+  devto: "https://dev.to/dorcie-dee",
   // TODO(owner): replace with the current CV. This Google Drive CV predates the Medpharma role.
   cv: "https://drive.google.com/file/d/1-23dK9-fEKakLgWwO8e8tM7_ZmbJXTgE/view?usp=sharing",
 } as const;
