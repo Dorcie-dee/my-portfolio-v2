@@ -2,20 +2,18 @@ import type { ReactNode } from "react";
 
 type TagProps = {
   children: ReactNode;
-  /** "subtle" for secondary items, e.g. less-used technologies. */
+  /** "subtle" for secondary items, e.g. less-used or planned technologies. */
   tone?: "default" | "subtle";
 };
 
 export function Tag({ children, tone = "default" }: TagProps) {
   const toneClasses =
     tone === "subtle"
-      ? "border-dashed text-fg-muted"
-      : "bg-surface-raised text-fg";
+      ? "border border-dashed border-line text-fg-muted"
+      : "bg-lilac text-ink";
 
   return (
-    <span
-      className={`inline-flex items-center rounded border border-line px-2 py-0.5 font-mono text-xs ${toneClasses}`}
-    >
+    <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold ${toneClasses}`}>
       {children}
     </span>
   );

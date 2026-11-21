@@ -23,13 +23,13 @@ export default function ProjectsPage() {
         </p>
       </PageHeader>
 
-      <section aria-label="Main projects" className="surface-light py-section">
+      <section aria-label="Main projects" className="surface-paper py-section">
         <Container>
           <ProjectGrid />
         </Container>
       </section>
 
-      <section aria-labelledby="more-heading" className="surface-muted py-section">
+      <section aria-labelledby="more-heading" className="surface-lilac py-section">
         <Container>
           <SectionHeading id="more-heading" eyebrow="More on GitHub" title="Earlier projects">
             <p>Smaller projects from earlier in my development work, with public source code.</p>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { site } from "@/data/site";
-import { geistMono, geistSans } from "@/lib/fonts";
+import { nunitoSans, play } from "@/lib/fonts";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -34,12 +34,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-GB"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${nunitoSans.variable} ${play.variable} h-full antialiased`}
     >
-      <body className="surface-light flex min-h-full flex-col">
+      <body className="surface-base flex min-h-full flex-col font-sans">
         <a
           href="#main"
-          className="surface-dark sr-only z-50 rounded-md px-4 py-2 focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="surface-plum sr-only z-50 rounded-lg px-4 py-2 font-bold focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to content
         </a>

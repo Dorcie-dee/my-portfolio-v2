@@ -4,7 +4,7 @@ Personal portfolio of **Dorcas Nyamekye Quaye**, a backend-focused software engi
 
 It is written for recruiters, employers, freelance clients and potential collaborators. It will show practical engineering experience, backend development, full-stack projects and problem solving.
 
-The visual direction is hybrid: dark and light sections alternate on the same page. This is not a user-controlled dark mode. See [docs/design-system.md](docs/design-system.md).
+The visual identity, "Plum & Marigold", uses warm ivory pages, violet and deep plum, marigold highlights and a woven stripe motif. There is no dark mode toggle. See [docs/design-system.md](docs/design-system.md).
 
 ## Tech stack
 
@@ -14,7 +14,7 @@ The visual direction is hybrid: dark and light sections alternate on the same pa
 | Language | TypeScript (strict) |
 | Styling | Tailwind CSS 4, with design tokens in `src/app/globals.css` |
 | Icons | [Lucide React](https://lucide.dev) |
-| Fonts | Geist and Geist Mono via `next/font` (self-hosted at build time) |
+| Fonts | Play (headings) and Nunito Sans (body) via `next/font` (self-hosted at build time) |
 | Linting | ESLint 9 with `eslint-config-next` |
 | Runtime | Node.js 24 LTS |
 | Package manager | Yarn Classic (1.22.x) |
@@ -53,6 +53,14 @@ yarn dev      # start the dev server at http://localhost:3000
 | `yarn start` | Serve the production build locally |
 
 Run `yarn typecheck && yarn lint && yarn build` before opening a pull request.
+
+## Deployment (Vercel)
+
+No environment variables are required.
+
+- **Site URL:** `src/lib/site-url.ts` uses `NEXT_PUBLIC_SITE_URL` if it is set. Otherwise it uses Vercel's built-in `VERCEL_PROJECT_PRODUCTION_URL` (your production domain, including a custom domain once assigned), and falls back to `http://localhost:3000` locally. Set `NEXT_PUBLIC_SITE_URL` (e.g. `https://example.com`) only to override that.
+- **Build settings:** Vercel detects Next.js and Yarn (from `yarn.lock`) automatically. Keep the defaults: install `yarn install`, build `next build`. Node.js 24 is selected from the `engines` field in `package.json`.
+- There are no secrets, database or API keys.
 
 ## Continuous integration
 

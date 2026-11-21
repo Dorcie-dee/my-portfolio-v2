@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
-// Colours mirror navy-950 and accent-lime from globals.css.
+// Colours mirror violet and white from globals.css.
 export default function Icon() {
   return new ImageResponse(
     (
@@ -14,8 +14,8 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0b1220",
-          color: "#b5e655",
+          background: "#6a2bc4",
+          color: "#ffffff",
           borderRadius: 12,
           fontSize: 26,
           fontWeight: 700,

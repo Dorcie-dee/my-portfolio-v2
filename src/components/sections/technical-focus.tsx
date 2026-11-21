@@ -5,11 +5,11 @@ import { Tag } from "@/components/ui/tag";
 
 export function TechnicalFocus() {
   return (
-    <section id="skills" aria-labelledby="skills-heading" className="surface-muted py-section">
+    <section id="skills" aria-labelledby="skills-heading" className="surface-lilac py-section">
       <Container>
         <SectionHeading id="skills-heading" eyebrow="Technical focus" title="The tools I work with, grouped by where they fit.">
           <p>
-            Solid tags are what I use most. Outlined tags are tools I have worked with in less
+            Filled tags are what I use most. Dashed tags are tools I have worked with in less
             depth.
           </p>
         </SectionHeading>
@@ -18,11 +18,11 @@ export function TechnicalFocus() {
           {skillCategories.map((category, index) => (
             <li
               key={category.title}
-              className={`flex flex-col rounded-lg border border-line bg-surface-raised p-6 ${
+              className={`flex flex-col rounded-2xl border-2 border-outline bg-surface-raised p-6 ${
                 index === 0 ? "lg:col-span-2" : ""
               }`}
             >
-              <h3 className="font-semibold">{category.title}</h3>
+              <h3 className="text-lg">{category.title}</h3>
               <p className="mt-1 text-sm text-fg-muted">{category.summary}</p>
 
               <ul className="mt-5 flex flex-wrap gap-2" aria-label={`${category.title}: main tools`}>
