@@ -25,7 +25,7 @@ function Headline() {
 export function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="surface-base">
-      <Container className="grid items-center gap-14 py-section lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
+      <Container className="grid items-center gap-14 pt-12 pb-section sm:pt-16 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:pt-[5.5rem]">
         <div>
           <p className="eyebrow text-accent">
             {site.greeting} · {site.heroRole}
