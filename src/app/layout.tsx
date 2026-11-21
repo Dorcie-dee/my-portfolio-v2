@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
-import { BackToTop } from "@/components/ui/back-to-top";
 import { site } from "@/data/site";
 import { nunitoSans, play } from "@/lib/fonts";
 import { getSiteUrl } from "@/lib/site-url";
@@ -37,20 +34,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en-GB"
       className={`${nunitoSans.variable} ${play.variable} h-full antialiased`}
     >
-      <body className="surface-base flex min-h-full flex-col font-sans">
-        <a
-          href="#main"
-          className="surface-plum sr-only z-50 rounded-lg px-4 py-2 font-bold focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
-        >
-          Skip to content
-        </a>
-        <SiteHeader />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <SiteFooter />
-        <BackToTop />
-      </body>
+      {/* Site chrome lives in (site)/layout.tsx so the Studio at /manage stays separate. */}
+      <body className="surface-base flex min-h-full flex-col font-sans">{children}</body>
     </html>
   );
 }
