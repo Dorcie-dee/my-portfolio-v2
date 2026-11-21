@@ -25,18 +25,20 @@ function Headline() {
 export function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="surface-base">
-      <Container className="grid items-center gap-14 py-section lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
+      <Container className="grid items-center gap-14 pt-12 pb-section sm:pt-16 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:pt-[5.5rem]">
         <div>
           <p className="eyebrow text-accent">
-            {site.greeting} · {site.role}
+            {site.greeting} · {site.heroRole}
           </p>
           <h1 id="hero-heading" className="mt-5 text-display text-balance text-plum">
             <Headline />
           </h1>
           <p className="mt-6 max-w-prose-narrow text-lg leading-relaxed text-fg-muted">
-            I design and build the server side of web applications: APIs, data models,
-            authentication and the automated tests that keep them dependable. When a product
-            needs it, I work across web and mobile with Next.js, React and React Native too.
+            I design and build the server side of software: APIs, data models, authentication
+            and the automated tests that keep them dependable. When a product needs it, I work
+            across <strong className="font-bold text-fg">web</strong> and{" "}
+            <strong className="font-bold text-fg">mobile</strong> with Next.js, React and React
+            Native too.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">

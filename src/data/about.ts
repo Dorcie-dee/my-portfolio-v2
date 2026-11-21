@@ -46,5 +46,5 @@ export const rightNow: { label: string; detail: string }[] = [
   { label: "Role", detail: `${currentRole.title}, ${currentRole.organisation}` },
   ...(fmp ? [{ label: "Shipped", detail: `${fmp.name}, used at a live concert` }] : []),
   ...(harvest ? [{ label: "Building", detail: `${harvest.name}, connecting farmers and job seekers` }] : []),
-  { label: "Core stack", detail: "Node.js · TypeScript · NestJS · PostgreSQL" },
+  { label: "Core stack", detail: "Node.js · TypeScript · JavaScript · NestJS · PostgreSQL" },
 ];
