@@ -22,7 +22,7 @@ export const focusAreas: { title: string; description: string }[] = [
   },
   {
     title: "Full stack when needed",
-    description: "Next.js and React to deliver complete features.",
+    description: "Next.js, React and React Native to deliver complete web and mobile features.",
   },
 ];
 
@@ -35,7 +35,7 @@ export const quickFacts = [
   { term: "Focus", detail: "Backend and API development" },
   { term: "Core stack", detail: "Node.js · TypeScript · NestJS · Express" },
   { term: "Data", detail: "PostgreSQL · MongoDB" },
-  { term: "Quality", detail: "Jest · Supertest · Swagger/OpenAPI" },
+  { term: "Quality", detail: "Jest · Supertest · Swagger/OpenAPI · Postman" },
 ];
 
 const fmp = getProject("fmp-ticketing-system");

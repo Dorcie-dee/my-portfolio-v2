@@ -36,7 +36,7 @@ export function Hero() {
           <p className="mt-6 max-w-prose-narrow text-lg leading-relaxed text-fg-muted">
             I design and build the server side of web applications: APIs, data models,
             authentication and the automated tests that keep them dependable. When a product
-            needs it, I work across the frontend with Next.js and React too.
+            needs it, I work across web and mobile with Next.js, React and React Native too.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">

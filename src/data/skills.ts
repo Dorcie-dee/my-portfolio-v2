@@ -15,13 +15,13 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Testing and API documentation",
-    summary: "Automated tests and clear, usable API contracts.",
-    core: ["Jest", "Supertest", "Swagger / OpenAPI", "Postman"],
+    summary: "Automated tests, plus API documentation with Swagger/OpenAPI and Postman.",
+    core: ["Jest", "Supertest", "Swagger / OpenAPI", "Postman documentation"],
   },
   {
-    title: "Frontend development",
-    summary: "Complete features when a project needs both sides.",
-    core: ["Next.js", "React", "Tailwind CSS"],
+    title: "Frontend and mobile",
+    summary: "Complete web and mobile features when a project needs both sides.",
+    core: ["Next.js", "React", "React Native", "Tailwind CSS"],
     familiar: ["Refine", "HTML and CSS", "Figma"],
   },
   {

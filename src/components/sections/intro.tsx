@@ -18,8 +18,8 @@ export function Intro() {
             </p>
             <p>
               I write automated tests with Jest and Supertest and document APIs with
-              Swagger/OpenAPI, so the systems I work on are easier to trust and to hand over. When
-              a feature needs a frontend, I build that too.
+              Swagger/OpenAPI and Postman, so the systems I work on are easier to trust and to hand
+              over. When a feature needs a web or mobile frontend, I build that too.
             </p>
           </div>
           <Link
