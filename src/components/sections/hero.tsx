@@ -28,17 +28,17 @@ export function Hero() {
       <Container className="grid items-center gap-14 pt-12 pb-section sm:pt-16 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:pt-[5.5rem]">
         <div>
           <p className="eyebrow text-accent">
-            {site.greeting} · {site.heroRole}
+            {site.greeting} · {site.focus} {site.role}
           </p>
           <h1 id="hero-heading" className="mt-5 text-display text-balance text-plum">
             <Headline />
           </h1>
           <p className="mt-6 max-w-prose-narrow text-lg leading-relaxed text-fg-muted">
-            I design and build the server side of software: APIs, data models, authentication
-            and the automated tests that keep them dependable. When a product needs it, I work
-            across <strong className="font-bold text-fg">web</strong> and{" "}
-            <strong className="font-bold text-fg">mobile</strong> with Next.js, React and React
-            Native too.
+            I build complete software solutions for{" "}
+            <strong className="font-bold text-fg">web</strong> and{" "}
+            <strong className="font-bold text-fg">mobile</strong>, from intuitive user interfaces to
+            reliable backend systems, APIs and databases. My strongest expertise is in backend
+            engineering, where I focus on systems that are maintainable, secure and dependable.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">

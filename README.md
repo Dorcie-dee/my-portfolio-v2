@@ -1,6 +1,6 @@
 # dorcas-portfolio
 
-Personal portfolio of **Dorcas Nyamekye Quaye**, a backend-focused software engineer.
+Personal portfolio of **Dorcas Nyamekye Quaye**, a Full-Stack Software Engineer with a backend focus.
 
 It is written for recruiters, employers, freelance clients and potential collaborators. It will show practical engineering experience, backend development, full-stack projects and problem solving.
 

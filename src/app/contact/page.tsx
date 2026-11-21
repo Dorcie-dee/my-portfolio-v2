@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata = pageMetadata({
   title: "Contact",
-  description: `Contact ${site.name} about backend or full-stack engineering roles, freelance projects and collaborations.`,
+  description: `Contact ${site.name} about full-stack or backend-focused software engineering roles, freelance projects and collaborations.`,
   path: "/contact",
 });
 
@@ -59,8 +59,8 @@ const channels: Channel[] = [
 ];
 
 const reasons = [
-  "Backend or full-stack software engineering roles",
-  "Freelance work on APIs, backend systems or complete web applications",
+  "Full-stack software engineering roles, especially backend-focused ones",
+  "Freelance work on complete web applications, APIs or backend systems",
   "Collaborations on practical products",
 ];
 

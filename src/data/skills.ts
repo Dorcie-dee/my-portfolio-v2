@@ -4,8 +4,8 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Backend engineering",
     summary: "Server-side applications, REST APIs, authentication and validation.",
-    core: ["Node.js", "TypeScript", "NestJS", "Express", "REST APIs"],
-    familiar: ["JavaScript", "JWT", "Joi", "Zod"],
+    core: ["Node.js", "TypeScript", "JavaScript", "NestJS", "Express", "REST APIs", "JWT"],
+    familiar: ["Joi", "Zod"],
   },
   {
     title: "Databases",
@@ -27,7 +27,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Cloud and developer tools",
     summary: "Deployment, hosting and day-to-day engineering workflow.",
-    core: ["Git and GitHub", "Vercel", "Render"],
-    familiar: ["AWS", "Netlify", "Cloudinary", "GitHub Actions"],
+    core: ["Git and GitHub", "GitHub Actions", "Vercel", "Render", "Cloudinary"],
+    familiar: ["AWS", "Netlify"],
   },
 ];

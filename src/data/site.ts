@@ -3,18 +3,18 @@ import type { NavItem } from "@/types/content";
 export const site = {
   name: "Dorcas Nyamekye Quaye",
   monogram: "DNQ",
-  role: "Backend-Focused Software Engineer",
+  role: "Full-Stack Software Engineer",
   headline:
-    "Building reliable backend systems, scalable APIs and practical software solutions.",
+    "Building complete software solutions, with reliable backend systems at their core.",
   /** Phrase within the headline that gets the marigold highlight. */
   headlineHighlight: "reliable backend systems",
   greeting: "Hello, I'm Dorcas",
-  /** Role shown beside the greeting in the hero only; `role` remains the site-wide title. */
-  heroRole: "Backend-Focused Full-Stack Software Developer",
+  /** Descriptor shown before the role in the hero greeting. */
+  focus: "Backend-focused",
   description:
-    "Backend-focused software engineer building REST APIs, data models and well-tested server-side systems with Node.js, TypeScript, NestJS and Express.",
+    "Full-Stack Software Engineer with strong backend expertise, building complete software solutions from user interfaces to reliable APIs, databases and server-side systems with Node.js, TypeScript, NestJS, React and Next.js.",
   statement:
-    "Backend-focused software engineer building reliable APIs and practical software.",
+    "Full-Stack Software Engineer building complete, dependable software, with particular strength in backend engineering.",
   availability: "Open to selected opportunities.",
   email: "dorcasnquaye28@gmail.com",
   github: "https://github.com/Dorcie-dee",

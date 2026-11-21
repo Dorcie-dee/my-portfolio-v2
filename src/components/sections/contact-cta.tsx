@@ -14,11 +14,11 @@ export function ContactCta() {
             Contact
           </p>
           <h2 id="contact-heading" className="mt-4 text-headline text-balance text-plum">
-            Have a backend role or project in mind? Let&apos;s talk.
+            Have a software engineering role or project in mind? Let&apos;s talk.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-fg-muted">
-            I&apos;m open to selected opportunities, including backend and full-stack engineering
-            roles, freelance projects and collaborations. Email is the quickest way to reach me.
+            I&apos;m open to selected opportunities, including full-stack and backend-focused
+            engineering roles, freelance projects and collaborations. Email is the quickest way to reach me.
           </p>
         </div>
 
