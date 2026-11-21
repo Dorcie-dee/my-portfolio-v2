@@ -71,7 +71,7 @@ GitHub Actions workflows live in `.github/workflows`. Nothing is deployed.
 | **CI** | Frozen-lockfile install, `yarn lint`, `yarn typecheck`, `yarn build` (Node from `.nvmrc`) | PRs to `main`, pushes to `main`, manual |
 | **Security** | `yarn audit` (blocks high or critical in production dependencies; reports dev dependencies without blocking), Gitleaks secret scan, dependency review of PR changes (blocks high or above) | PRs, pushes to `main`, weekly, manual |
 | **CodeQL** | Static analysis of the TypeScript code and the workflow files | PRs, pushes to `main`, weekly, manual |
-| **Conventional Commits** | PR title and every non-merge commit match `type(optional-scope): description` | PRs (including title edits) |
+| **Conventional Commits** | PR title and every non-merge commit match `type(optional-scope): description`. An invalid PR title (such as GitHub's default) is renamed automatically from the branch name, e.g. `feat/sanity-cms` becomes `feat: sanity cms`. | PRs (including title edits) |
 
 **Before merging**, every check above must pass. To check a message locally:
 `.github/scripts/check-conventional-commit.sh message "ci: add quality checks"`.
