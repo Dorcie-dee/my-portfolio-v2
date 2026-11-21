@@ -54,6 +54,14 @@ yarn dev      # start the dev server at http://localhost:3000
 
 Run `yarn typecheck && yarn lint && yarn build` before opening a pull request.
 
+## Deployment (Vercel)
+
+No environment variables are required.
+
+- **Site URL:** `src/lib/site-url.ts` uses `NEXT_PUBLIC_SITE_URL` if it is set. Otherwise it uses Vercel's built-in `VERCEL_PROJECT_PRODUCTION_URL` (your production domain, including a custom domain once assigned), and falls back to `http://localhost:3000` locally. Set `NEXT_PUBLIC_SITE_URL` (e.g. `https://example.com`) only to override that.
+- **Build settings:** Vercel detects Next.js and Yarn (from `yarn.lock`) automatically. Keep the defaults: install `yarn install`, build `next build`. Node.js 24 is selected from the `engines` field in `package.json`.
+- There are no secrets, database or API keys.
+
 ## Continuous integration
 
 GitHub Actions workflows live in `.github/workflows`. Nothing is deployed.
