@@ -71,7 +71,8 @@ export default function ContactPage() {
         <Container>
           <ul className="grid gap-4 sm:grid-cols-2">
             {channels.map((channel) => (
-              <li key={channel.label}>
+              // min-w-0 lets the card shrink below its content so long values (e.g. email) wrap
+              <li key={channel.label} className="min-w-0">
                 <a
                   href={channel.href}
                   {...(channel.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -82,10 +83,10 @@ export default function ContactPage() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="eyebrow block text-fg-muted">{channel.label}</span>
-                    <span className="mt-0.5 block truncate font-bold">{channel.value}</span>
+                    <span className="mt-0.5 block font-bold [overflow-wrap:anywhere]">{channel.value}</span>
                   </span>
                   <ArrowUpRight
-                    className="size-5 text-fg-muted transition-colors group-hover:text-accent"
+                    className="size-5 shrink-0 text-fg-muted transition-colors group-hover:text-accent"
                     aria-hidden="true"
                   />
                   {channel.external ? <span className="sr-only"> (opens in a new tab)</span> : null}
