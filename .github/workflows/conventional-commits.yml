@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 5
     permissions:
       contents: read
+      # Only to replace GitHub's default PR title (from the branch name) with a valid one.
+      pull-requests: write
     steps:
       - name: Check out repository (full history)
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -26,10 +28,16 @@ jobs:
           persist-credentials: false
 
       # Untrusted values are passed via env, never interpolated into the script.
-      - name: Validate PR title
+      # An invalid title (e.g. GitHub's default "Feat/sanity cms") is renamed from the branch name,
+      # e.g. feat/sanity-cms -> "feat: sanity cms", and validated in this same step.
+      - name: Validate PR title (auto-fixes the default title)
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
-        run: .github/scripts/check-conventional-commit.sh title
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          IS_FORK: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .github/scripts/check-conventional-commit.sh pr-title
 
       - name: Validate commit messages
         if: ${{ !cancelled() }}
