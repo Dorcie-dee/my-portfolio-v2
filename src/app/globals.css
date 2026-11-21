@@ -36,7 +36,7 @@
   --spacing-section: clamp(4rem, 8vw, 8rem);
 
   /* Fluid display sizes (Tailwind's default scale covers body and UI text) */
-  --text-display: clamp(2.5rem, 4vw + 1.5rem, 4.5rem);
+  --text-display: clamp(2.25rem, 3vw + 1.25rem, 3.75rem);
   --text-display--line-height: 1.05;
   --text-display--letter-spacing: -0.025em;
   --text-headline: clamp(1.875rem, 2vw + 1.25rem, 3rem);
@@ -111,6 +111,11 @@
   body {
     background-color: var(--surface-bg);
     color: var(--surface-fg);
+  }
+
+  /* Keep anchored sections clear of the sticky 4rem header */
+  [id] {
+    scroll-margin-top: 5rem;
   }
 
   /* Visible keyboard focus on every surface (accent is >= 6:1 against each background) */

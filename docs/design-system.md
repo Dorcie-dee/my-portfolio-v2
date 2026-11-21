@@ -82,7 +82,7 @@ Both are self-hosted through `next/font` with `display: swap`.
 
 | Utility | Size | Line height | Tracking |
 | --- | --- | --- | --- |
-| `text-display` | `clamp(2.5rem, 4vw + 1.5rem, 4.5rem)` | 1.05 | -0.025em |
+| `text-display` | `clamp(2.25rem, 3vw + 1.25rem, 3.75rem)` | 1.05 | -0.025em |
 | `text-headline` | `clamp(1.875rem, 2vw + 1.25rem, 3rem)` | 1.15 | -0.02em |
 
 ## 4. Spacing and layout
@@ -110,6 +110,10 @@ Both are self-hosted through `next/font` with `display: swap`.
 
 ### Still open
 
-1. **Identity details.** Decide which specific elements to echo, such as a colour, monogram, photo treatment or tone of voice. Decide this with the navigation and hero work.
-2. **Section order.** Decide which content gets dark, light or muted surfaces once the homepage structure is agreed.
-3. **Component radius and elevation.** Set border-radius and shadow tokens when the first UI primitives are built.
+1. **Component radius and elevation.** Components currently use Tailwind's `rounded-md`/`rounded-lg` without shadows. Formalise tokens if more variation is needed.
+
+### Applied on the homepage
+
+- **Identity echo:** a "DNQ" monogram and an uppercase name wordmark (a nod to the previous site's uppercase name header), in Geist Mono and the accent colour.
+- **Section order and surfaces:** header (dark) → hero (dark) → about (light) → technical focus (muted) → selected projects (light) → experience (dark) → contact (light) → footer (dark).
+- **Project visuals:** abstract navy panels with a grid pattern and the project monogram. They are decorative (`aria-hidden`), labelled on the page as illustrative, and never presented as screenshots.
