@@ -30,11 +30,11 @@ export function Hero() {
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <ButtonLink href="/#projects">
+            <ButtonLink href="/projects">
               View projects
               <ArrowRight className="size-4" aria-hidden="true" />
             </ButtonLink>
-            <ButtonLink href="/#contact" variant="secondary">
+            <ButtonLink href="/contact" variant="secondary">
               <Mail className="size-4" aria-hidden="true" />
               Get in touch
             </ButtonLink>

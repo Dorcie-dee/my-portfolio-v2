@@ -4,9 +4,18 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { LinkedInIcon } from "@/components/ui/brand-icons";
 
-export function ContactCta() {
+type ContactCtaProps = {
+  /** Use "muted" when the previous section is also light, to keep sections distinct. */
+  surface?: "light" | "muted";
+};
+
+export function ContactCta({ surface = "light" }: ContactCtaProps) {
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="surface-light py-section">
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      className={`${surface === "muted" ? "surface-muted" : "surface-light"} py-section`}
+    >
       <Container>
         <div className="max-w-prose-narrow">
           <p className="font-mono text-sm text-accent">Contact</p>

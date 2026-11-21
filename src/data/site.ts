@@ -18,14 +18,10 @@ export const site = {
   cv: "https://drive.google.com/file/d/1-23dK9-fEKakLgWwO8e8tM7_ZmbJXTgE/view?usp=sharing",
 } as const;
 
-/**
- * Homepage section anchors for now. Switch to page routes (/about, /projects, ...)
- * when those pages are built.
- */
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/#about" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Contact", href: "/#contact" },
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "/projects" },
+  { label: "Experience", href: "/experience" },
+  { label: "Contact", href: "/contact" },
 ];

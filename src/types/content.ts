@@ -42,18 +42,29 @@ export type Project = {
   /** Two or three letters for the decorative card visual. */
   monogram: string;
   featured?: boolean;
+  /** Case-study background paragraphs: purpose, users and context. Facts only. */
+  context: string[];
+};
+
+/** Smaller public projects listed compactly, without case studies. */
+export type MinorProject = {
+  name: string;
+  summary: string;
+  technologies: string[];
+  links: ExternalLink[];
 };
 
 export type Role = {
+  kind: "Employment" | "Training";
   organisation: string;
   title: string;
   /** Display label, e.g. "September 2025". */
   start: string;
-  /** ISO date (YYYY-MM) for <time>. */
+  /** ISO date (YYYY or YYYY-MM) for <time>. */
   startDate: string;
-  /** Display label; "Present" for the current role. */
-  end: string;
-  summary: string;
-  contributions: string[];
-  technologies: string[];
+  /** Display label; "Present" for the current role. Omit for single-period entries. */
+  end?: string;
+  summary?: string;
+  contributions?: string[];
+  technologies?: string[];
 };
