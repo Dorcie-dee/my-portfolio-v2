@@ -114,13 +114,14 @@ Import from `src` with the `@/` alias, for example `import { geistSans } from "@
 
 ## Current status
 
-**Phase: project foundation.**
+**Phase: site built, pre-launch.**
 
-- [x] Next.js, TypeScript, Tailwind CSS 4, ESLint and Lucide React set up
-- [x] Node.js 24 LTS configured, with a fresh-clone-safe `typecheck` script
-- [x] Folder structure in place
-- [x] Design tokens, surfaces, focus and reduced-motion styles
-- [ ] Navigation, homepage and portfolio sections (not started)
-- [ ] Real content: projects, experience, CV (not started)
+- [x] Foundation: Next.js, TypeScript, Tailwind CSS 4, ESLint, Node.js 24, design tokens
+- [x] CI quality gates and security scanning
+- [x] Shared header (with mobile menu), footer and homepage
+- [x] About, Projects, project case studies (`/projects/[slug]`), Experience and Contact pages
+- [x] Metadata, Open Graph image, icon, sitemap, robots and a custom 404 page
+- [ ] Replace the CV link in `src/data/site.ts` (currently an older CV)
+- [ ] Choose hosting and set `NEXT_PUBLIC_SITE_URL`
 
-`src/app/page.tsx` is currently a **temporary design-token check page**. It shows each surface, the type scale and the focus ring. It contains no portfolio content and will be replaced when the homepage is built.
+Content lives in `src/data`. Only verified public links are used, and private repositories are never linked.

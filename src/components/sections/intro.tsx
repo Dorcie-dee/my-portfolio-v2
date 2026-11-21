@@ -1,14 +1,8 @@
-import { currentRole } from "@/data/experience";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-
-const facts = [
-  { term: "Current role", detail: `${currentRole.title}, ${currentRole.organisation}` },
-  { term: "Focus", detail: "Backend and API development" },
-  { term: "Core stack", detail: "Node.js · TypeScript · NestJS · Express" },
-  { term: "Data", detail: "PostgreSQL · MongoDB" },
-  { term: "Quality", detail: "Jest · Supertest · Swagger/OpenAPI" },
-];
+import { QuickFacts } from "./quick-facts";
 
 export function Intro() {
   return (
@@ -28,16 +22,16 @@ export function Intro() {
               a feature needs a frontend, I build that too.
             </p>
           </div>
+          <Link
+            href="/about"
+            className="mt-6 inline-flex items-center gap-1 font-medium text-accent underline-offset-4 hover:underline"
+          >
+            More about me
+            <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
         </div>
 
-        <dl className="self-start divide-y divide-line rounded-lg border border-line bg-surface-raised">
-          {facts.map(({ term, detail }) => (
-            <div key={term} className="px-5 py-4">
-              <dt className="font-mono text-xs text-fg-muted">{term}</dt>
-              <dd className="mt-1 font-medium">{detail}</dd>
-            </div>
-          ))}
-        </dl>
+        <QuickFacts />
       </Container>
     </section>
   );

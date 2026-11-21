@@ -1,12 +1,10 @@
-import { projects } from "@/data/projects";
+import { ArrowRight } from "lucide-react";
+import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { ProjectCard } from "./project-card";
+import { ProjectGrid } from "./project-grid";
 
 export function SelectedProjects() {
-  const featured = projects.filter((project) => project.featured);
-  const others = projects.filter((project) => !project.featured);
-
   return (
     <section id="projects" aria-labelledby="projects-heading" className="surface-light py-section">
       <Container>
@@ -16,21 +14,14 @@ export function SelectedProjects() {
           title="Practical software, from live event ticketing to everyday business tools."
         />
 
-        <div className="mt-12 space-y-6">
-          {featured.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {others.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </div>
+        <div className="mt-12">
+          <ProjectGrid />
         </div>
 
-        <p className="mt-6 text-xs text-fg-muted">
-          Project visuals are illustrative and are not application screenshots.
-        </p>
+        <ButtonLink href="/projects" variant="secondary" className="mt-8">
+          All projects
+          <ArrowRight className="size-4" aria-hidden="true" />
+        </ButtonLink>
       </Container>
     </section>
   );

@@ -3,6 +3,7 @@ import type { Role } from "@/types/content";
 // Public content only: no internal system names, URLs, credentials or architecture details.
 
 export const currentRole: Role = {
+  kind: "Employment",
   organisation: "Medpharma Alliance International",
   title: "Mid-Level Software Engineer",
   start: "September 2025",
@@ -19,3 +20,15 @@ export const currentRole: Role = {
   ],
   technologies: ["Jest", "Supertest", "Swagger / OpenAPI", "AWS"],
 };
+
+/** All roles, most recent first. Only roles the owner has approved for the public site. */
+export const roles: Role[] = [
+  currentRole,
+  {
+    kind: "Training",
+    organisation: "MEST Africa",
+    title: "Web Development",
+    start: "2025",
+    startDate: "2025",
+  },
+];

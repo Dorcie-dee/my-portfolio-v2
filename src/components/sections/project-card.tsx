@@ -1,4 +1,5 @@
-import { ArrowUpRight, Lock } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Lock } from "lucide-react";
+import Link from "next/link";
 import type { Project, ProjectStatusTone } from "@/types/content";
 import { Tag } from "@/components/ui/tag";
 
@@ -94,6 +95,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-6 text-sm">
+          <Link
+            href={`/projects/${project.slug}`}
+            className="inline-flex items-center gap-1 font-medium text-fg underline-offset-4 hover:underline"
+          >
+            Case study
+            <ArrowRight className="size-4" aria-hidden="true" />
+            <span className="sr-only">: {project.name}</span>
+          </Link>
           {project.links.length > 0 ? (
             project.links.map((link) => (
               <a
