@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContactCta } from "@/components/sections/contact-cta";
 import { PageHeader } from "@/components/sections/page-header";
-import { ProjectVisual } from "@/components/sections/project-card";
+import { ProjectVisual } from "@/components/sections/project-visual";
 import { ProjectGallery } from "@/components/sections/project-gallery";
 import { StatusBadge } from "@/components/sections/status-badge";
 import { Container } from "@/components/ui/container";
