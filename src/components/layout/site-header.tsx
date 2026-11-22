@@ -19,7 +19,7 @@ export function SiteHeader({ name, monogram, cv }: SiteHeaderProps) {
   return (
     <header className="surface-base sticky top-0 z-40 border-b border-line">
       <div className="stripe h-1.5" aria-hidden="true" />
-      <Container className="relative flex h-[4.25rem] items-center justify-between gap-6">
+      <Container className="relative flex h-17 items-center justify-between gap-6">
         <Link href="/" className="flex items-center gap-3 rounded-lg">
           {monogram ? (
             <span

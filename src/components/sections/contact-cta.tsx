@@ -15,7 +15,7 @@ export function ContactCta({ email, linkedinUrl }: ContactCtaProps) {
       <Container className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.5fr)_auto]">
         <div className="max-w-prose-narrow">
           <p className="eyebrow flex items-center gap-3 text-accent">
-            <span className="stripe h-1.5 w-[60px] shrink-0 rounded-full" aria-hidden="true" />
+            <span className="stripe h-1.5 w-15 shrink-0 rounded-full" aria-hidden="true" />
             Contact
           </p>
           <h2 id="contact-heading" className="mt-4 text-headline text-balance text-plum">

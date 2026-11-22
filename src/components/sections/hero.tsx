@@ -41,7 +41,7 @@ export function Hero({ profile, socialLinks }: HeroProps) {
 
   return (
     <section aria-labelledby="hero-heading" className="surface-base">
-      <Container className="grid items-center gap-14 pt-12 pb-section sm:pt-16 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:pt-[5.5rem]">
+      <Container className="grid items-center gap-14 pt-12 pb-section sm:pt-16 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:pt-22">
         <div>
           <p className="eyebrow text-accent">
             {[profile.greeting, [profile.focusDescriptor, profile.title].filter(Boolean).join(" ")]
