@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit",
+    "typegen": "sanity schema extract --path sanity-schema.json && sanity typegen generate"
   },
   "dependencies": {
     "@sanity/client": "8.17.0",

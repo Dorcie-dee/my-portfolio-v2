@@ -41,5 +41,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# sanity: schema snapshot used only to generate src/sanity/types.ts (yarn typegen)
+/sanity-schema.json
+
 # local AI assistant instructions (kept local, never committed)
 /CLAUDE.md
