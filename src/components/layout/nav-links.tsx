@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { isActivePath } from "@/lib/nav";
-import type { NavItem } from "@/types/content";
+import { isActivePath, type NavItem } from "@/lib/nav";
 
 type NavLinksProps = {
   items: NavItem[];

@@ -1,9 +1,11 @@
-import { skillCategories } from "@/data/skills";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Tag } from "@/components/ui/tag";
+import type { SkillCategory } from "@/lib/content";
 
-export function TechnicalFocus() {
+export function TechnicalFocus({ categories }: { categories: SkillCategory[] }) {
+  if (!categories.length) return null;
+
   return (
     <section id="skills" aria-labelledby="skills-heading" className="surface-lilac py-section">
       <Container>
@@ -15,9 +17,9 @@ export function TechnicalFocus() {
         </SectionHeading>
 
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {skillCategories.map((category, index) => (
+          {categories.map((category, index) => (
             <li
-              key={category.title}
+              key={category._id}
               className={`flex flex-col rounded-2xl border-2 border-outline bg-surface-raised p-6 ${
                 index === 0 ? "lg:col-span-2" : ""
               }`}
@@ -26,7 +28,7 @@ export function TechnicalFocus() {
               <p className="mt-1 text-sm text-fg-muted">{category.summary}</p>
 
               <ul className="mt-5 flex flex-wrap gap-2" aria-label={`${category.title}: main tools`}>
-                {category.core.map((tech) => (
+                {category.core?.map((tech) => (
                   <li key={tech}>
                     <Tag>{tech}</Tag>
                   </li>

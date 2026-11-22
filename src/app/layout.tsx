@@ -1,32 +1,41 @@
 import type { Metadata } from "next";
-import { site } from "@/data/site";
 import { nunitoSans, play } from "@/lib/fonts";
+import { shareImageFor } from "@/lib/page-metadata";
 import { getSiteUrl } from "@/lib/site-url";
+import { getSite } from "@/sanity/lib/data";
 import "./globals.css";
 
-const title = `${site.name} | ${site.role}`;
+/** Site-wide defaults from Sanity (Site settings and Profile). Pages can override them. */
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite();
+  const siteTitle = site.settings.siteTitle ?? site.profile.name ?? "";
+  const title = [siteTitle, site.profile.title].filter(Boolean).join(" | ");
+  const description = site.settings.seoDescription ?? undefined;
+  const github = site.socialLinks.find((link) => link.platform === "github")?.url ?? undefined;
+  // Use the uploaded share image when there is one; otherwise the generated opengraph-image applies.
+  const customImage = site.settings.shareImage?.asset?.url ? [shareImageFor(site)] : undefined;
 
-export const metadata: Metadata = {
-  metadataBase: getSiteUrl(),
-  title: {
-    default: title,
-    template: `%s | ${site.name}`,
-  },
-  description: site.description,
-  authors: [{ name: site.name, url: site.github }],
-  openGraph: {
-    type: "website",
-    locale: "en_GB",
-    siteName: site.name,
-    title,
-    description: site.description,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description: site.description,
-  },
-};
+  return {
+    metadataBase: getSiteUrl(),
+    title: { default: title, template: `%s | ${siteTitle}` },
+    description,
+    authors: [{ name: site.profile.name ?? siteTitle, url: github }],
+    openGraph: {
+      type: "website",
+      locale: "en_GB",
+      siteName: siteTitle,
+      title,
+      description,
+      ...(customImage ? { images: customImage } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      ...(customImage ? { images: customImage } : {}),
+    },
+  };
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

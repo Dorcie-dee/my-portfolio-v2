@@ -1,10 +1,13 @@
 import { ImageResponse } from "next/og";
+import { getSite } from "@/sanity/lib/data";
 
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
 // Colours mirror violet and white from globals.css.
-export default function Icon() {
+export default async function Icon() {
+  const { profile } = await getSite();
+
   return new ImageResponse(
     (
       <div
@@ -22,7 +25,7 @@ export default function Icon() {
           letterSpacing: 1,
         }}
       >
-        DNQ
+        {profile.monogram ?? ""}
       </div>
     ),
     size,

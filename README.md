@@ -115,7 +115,7 @@ Import from `src` with the `@/` alias, for example `import { geistSans } from "@
 ## Engineering conventions
 
 - Use Server Components by default. Add `"use client"` only when interactivity requires it.
-- Keep content in `src/data` and types in `src/types`. Components only present that content.
+- Content is managed in Sanity (`/manage`) and fetched in `src/sanity/lib`. Components only present that content. Run `yarn typegen` after changing schemas or queries.
 - Use semantic HTML, visible keyboard focus and accessible names.
 - Use the semantic colour utilities (`bg-surface`, `text-fg`, `text-accent`, etc.) rather than raw hex values.
 - Avoid adding dependencies without a clear need.
@@ -129,7 +129,7 @@ Import from `src` with the `@/` alias, for example `import { geistSans } from "@
 - [x] Shared header (with mobile menu), footer and homepage
 - [x] About, Projects, project case studies (`/projects/[slug]`), Experience and Contact pages
 - [x] Metadata, Open Graph image, icon, sitemap, robots and a custom 404 page
-- [ ] Replace the CV link in `src/data/site.ts` (currently an older CV)
+- [ ] Upload the current CV PDF in `/manage` → CV and turn on "Show CV on website"
 - [ ] Choose hosting and set `NEXT_PUBLIC_SITE_URL`
 
-Content lives in `src/data`. Only verified public links are used, and private repositories are never linked.
+Content lives in Sanity and is edited at `/manage`; published changes appear on the site within about two minutes, without a redeploy. `src/data` holds the original content used by the one-off migration script. Only verified public links are used, and private repositories are never linked.

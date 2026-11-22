@@ -1,16 +1,22 @@
 import { Briefcase, GraduationCap } from "lucide-react";
-import type { Role } from "@/types/content";
 import { Tag } from "@/components/ui/tag";
+import { employmentLabel, type ExperienceEntry, rolePeriod } from "@/lib/content";
 
 type RoleCardProps = {
-  role: Role;
+  role: ExperienceEntry;
   /** Heading level for the role title, so it fits the page outline. */
   as?: "h2" | "h3";
 };
 
 export function RoleCard({ role, as: Heading = "h3" }: RoleCardProps) {
-  const headingId = `role-${role.organisation.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
-  const Icon = role.kind === "Training" ? GraduationCap : Briefcase;
+  const organisation = role.organisation ?? "";
+  const headingId = `role-${organisation.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+  const isTraining = role.employmentType === "training";
+  const Icon = isTraining ? GraduationCap : Briefcase;
+  // Shown as before: "Employment" for jobs, "Training" for training.
+  const kind = isTraining ? "Training" : "Employment";
+  const type = isTraining ? null : employmentLabel(role.employmentType);
+  const period = rolePeriod(role);
   const hasDetail = Boolean(role.contributions?.length);
 
   return (
@@ -30,16 +36,19 @@ export function RoleCard({ role, as: Heading = "h3" }: RoleCardProps) {
           >
             <Icon className="size-5" />
           </span>
-          <span className="eyebrow text-fg-muted">{role.kind}</span>
+          <span className="eyebrow text-fg-muted">{type ? `${kind} · ${type}` : kind}</span>
         </div>
         <Heading id={headingId} className="mt-5 text-2xl text-plum">
           {role.title}
         </Heading>
-        <p className="mt-1 text-lg font-semibold">{role.organisation}</p>
-        <p className="mt-3 inline-flex rounded-full bg-butter px-3 py-1 text-sm font-bold text-ink">
-          <time dateTime={role.startDate}>{role.start}</time>
-          {role.end ? <>&nbsp;– {role.end}</> : null}
-        </p>
+        <p className="mt-1 text-lg font-semibold">{organisation}</p>
+        {role.location ? <p className="mt-1 text-sm text-fg-muted">{role.location}</p> : null}
+        {period.start ? (
+          <p className="mt-3 inline-flex rounded-full bg-butter px-3 py-1 text-sm font-bold text-ink">
+            <time dateTime={role.startDate ?? undefined}>{period.start}</time>
+            {period.end ? <>&nbsp;– {period.end}</> : null}
+          </p>
+        ) : null}
         {role.summary ? <p className="mt-6 leading-relaxed text-fg-muted">{role.summary}</p> : null}
       </div>
 
@@ -56,7 +65,7 @@ export function RoleCard({ role, as: Heading = "h3" }: RoleCardProps) {
           </ul>
 
           {role.technologies?.length ? (
-            <ul className="mt-6 flex flex-wrap gap-2" aria-label={`Tools used at ${role.organisation}`}>
+            <ul className="mt-6 flex flex-wrap gap-2" aria-label={`Tools used at ${organisation}`}>
               {role.technologies.map((tech) => (
                 <li key={tech}>
                   <Tag>{tech}</Tag>
