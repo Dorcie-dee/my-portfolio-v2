@@ -72,8 +72,13 @@ export function ProjectVisual({ project, index, className = "" }: ProjectVisualP
             </div>
           </>
         ) : (
-          /* Browser window rising from the bottom edge; the panel clips the lower part. */
-          <div className="absolute inset-x-6 top-16 overflow-hidden rounded-t-xl border-2 border-b-0 border-plum bg-white shadow-[0_10px_30px_rgb(46_26_71/0.35)]">
+          /* Browser window rising from the bottom edge (the panel clips the lower part). On the
+             tall featured panel at desktop width the whole window fits, so it is centred and complete. */
+          <div
+            className={`absolute inset-x-6 top-16 overflow-hidden rounded-t-xl border-2 border-b-0 border-plum bg-white shadow-[0_10px_30px_rgb(46_26_71/0.35)] ${
+              project.featured ? "lg:top-1/2 lg:-translate-y-1/2 lg:rounded-b-xl lg:border-b-2" : ""
+            }`}
+          >
             <div aria-hidden="true" className="flex gap-1.5 border-b-2 border-plum bg-ivory px-3 py-2">
               <span className="size-2 rounded-full bg-plum/30" />
               <span className="size-2 rounded-full bg-plum/30" />
