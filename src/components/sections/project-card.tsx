@@ -18,33 +18,81 @@ type ProjectVisualProps = {
 };
 
 /**
- * The project's thumbnail when one is uploaded in Sanity. Otherwise a colour-blocked
- * decorative panel (numbered label, dot pattern, initials), hidden from assistive technology.
+ * The project's colour panel (numbered label, initials). When a thumbnail is uploaded in
+ * Sanity, the screenshot is framed inside the panel at its true proportions, never cropped
+ * to fit: a phone frame for portrait (mobile) screenshots, a browser window for landscape
+ * ones. Without a thumbnail, the panel is purely decorative and hidden from assistive technology.
  */
 export function ProjectVisual({ project, index, className = "" }: ProjectVisualProps) {
   const thumbnail = project.thumbnail?.asset?.url ? project.thumbnail : null;
+  const tone = projectTone(index);
+  const number = String(index + 1).padStart(2, "0");
 
   if (thumbnail) {
-    const width = 1200;
-    const height = 900;
+    const dimensions = thumbnail.asset?.metadata?.dimensions;
+    const ratio = dimensions?.width && dimensions.height ? dimensions.height / dimensions.width : 0.75;
+    const isPortrait = ratio > 1;
+    const width = isPortrait ? 640 : 1400;
+    const blur = thumbnail.asset?.metadata?.lqip
+      ? { placeholder: "blur" as const, blurDataURL: thumbnail.asset.metadata.lqip }
+      : {};
+
     return (
-      <div className={`relative overflow-hidden bg-lilac ${className}`}>
-        <Image
-          src={urlFor(thumbnail).width(width).height(height).fit("crop").url()}
-          alt={thumbnail.alt ?? ""}
-          fill
-          sizes={project.featured ? "(min-width: 1024px) 45vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 768px) 50vw, 100vw"}
-          className="object-cover"
-          {...(thumbnail.asset?.metadata?.lqip
-            ? { placeholder: "blur" as const, blurDataURL: thumbnail.asset.metadata.lqip }
-            : {})}
-        />
+      <div className={`relative overflow-hidden ${tone.panel} ${tone.text} ${className}`}>
+        <span aria-hidden="true" className={`eyebrow absolute top-6 left-6 z-10 ${isPortrait ? "max-w-[44%]" : "max-w-[70%]"}`}>
+          {number} / {project.category}
+        </span>
+
+        {isPortrait ? (
+          <>
+            <span
+              aria-hidden="true"
+              className={`absolute bottom-6 left-6 z-10 font-display leading-[0.85] font-bold ${
+                project.featured ? "text-7xl sm:text-8xl" : "text-5xl"
+              }`}
+            >
+              {project.panelInitials}
+            </span>
+            {/* Phone frame rising from the bottom edge (the panel clips the lower part). On the
+                tall featured panel at desktop width the whole phone fits, so it is shown complete. */}
+            <div
+              className={`absolute top-6 right-6 w-[38%] max-w-56 overflow-hidden rounded-t-[1.75rem] border-[5px] border-b-0 border-plum bg-plum shadow-[0_10px_30px_rgb(46_26_71/0.35)] ${
+                project.featured ? "lg:top-1/2 lg:-translate-y-1/2 lg:rounded-b-[1.75rem] lg:border-b-[5px]" : ""
+              }`}
+            >
+              <Image
+                src={urlFor(thumbnail).width(width).url()}
+                alt={thumbnail.alt ?? ""}
+                width={width}
+                height={Math.round(width * ratio)}
+                sizes="(min-width: 1024px) 224px, 40vw"
+                className={`h-auto w-full rounded-t-[1.4rem] ${project.featured ? "lg:rounded-b-[1.4rem]" : ""}`}
+                {...blur}
+              />
+            </div>
+          </>
+        ) : (
+          /* Browser window rising from the bottom edge; the panel clips the lower part. */
+          <div className="absolute inset-x-6 top-16 overflow-hidden rounded-t-xl border-2 border-b-0 border-plum bg-white shadow-[0_10px_30px_rgb(46_26_71/0.35)]">
+            <div aria-hidden="true" className="flex gap-1.5 border-b-2 border-plum bg-ivory px-3 py-2">
+              <span className="size-2 rounded-full bg-plum/30" />
+              <span className="size-2 rounded-full bg-plum/30" />
+              <span className="size-2 rounded-full bg-plum/30" />
+            </div>
+            <Image
+              src={urlFor(thumbnail).width(width).url()}
+              alt={thumbnail.alt ?? ""}
+              width={width}
+              height={Math.round(width * ratio)}
+              sizes={project.featured ? "(min-width: 1024px) 40vw, 90vw" : "(min-width: 1024px) 28vw, (min-width: 768px) 45vw, 90vw"}
+              className="h-auto w-full"
+              {...blur}
+            />
+          </div>
+        )}
       </div>
     );
   }
-
-  const tone = projectTone(index);
-  const number = String(index + 1).padStart(2, "0");
 
   return (
     <div

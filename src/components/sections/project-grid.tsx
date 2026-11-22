@@ -33,7 +33,7 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
       ) : null}
 
       {usesPanels ? (
-        <p className="text-xs text-fg-muted">Project panels are illustrative graphics, not application screenshots.</p>
+        <p className="text-xs text-fg-muted">Projects without screenshots are shown with illustrative colour panels.</p>
       ) : null}
     </div>
   );
