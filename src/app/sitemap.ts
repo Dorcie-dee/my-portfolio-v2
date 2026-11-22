@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
-import { projects } from "@/data/projects";
 import { getSiteUrl } from "@/lib/site-url";
+import { getProjectSlugs } from "@/sanity/lib/data";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = getSiteUrl();
   const paths = ["/", "/about", "/projects", "/experience", "/contact"];
-  const projectPaths = projects.map((project) => `/projects/${project.slug}`);
+  const projectPaths = (await getProjectSlugs()).map((slug) => `/projects/${slug}`);
 
   return [...paths, ...projectPaths].map((path) => ({
     url: new URL(path, base).toString(),

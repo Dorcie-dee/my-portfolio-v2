@@ -4,15 +4,15 @@ import { FileText, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
-import { isActivePath } from "@/lib/nav";
-import type { NavItem } from "@/types/content";
+import { isActivePath, type NavItem } from "@/lib/nav";
 
 type MobileNavProps = {
   items: NavItem[];
-  cvHref: string;
+  /** Shown only when the CV is visible and has a file. */
+  cv: { href: string; label: string } | null;
 };
 
-export function MobileNav({ items, cvHref }: MobileNavProps) {
+export function MobileNav({ items, cv }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
@@ -73,19 +73,21 @@ export function MobileNav({ items, cvHref }: MobileNavProps) {
                 </li>
               );
             })}
-            <li className="mt-2 border-t border-line pt-3">
-              <a
-                href={cvHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={close}
-                className="flex items-center gap-2 rounded-xl px-4 py-3 text-base font-bold text-accent hover:bg-lilac"
-              >
-                <FileText className="size-5" aria-hidden="true" />
-                View CV
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            </li>
+            {cv ? (
+              <li className="mt-2 border-t border-line pt-3">
+                <a
+                  href={cv.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={close}
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-base font-bold text-accent hover:bg-lilac"
+                >
+                  <FileText className="size-5" aria-hidden="true" />
+                  {cv.label}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </li>
+            ) : null}
           </ul>
         </nav>
       </div>

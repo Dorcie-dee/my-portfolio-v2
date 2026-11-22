@@ -9,7 +9,7 @@ export const projects: Project[] = [
     name: "FMP Ticketing System",
     type: "Event ticketing platform",
     summary:
-      "A ticketing platform built for the Strings of Hope/Yulari concert. It handled ticket sales, issuance and QR-based entry for a real event.",
+      "A ticketing platform built for the Strings of Hope concert. It handled ticket sales, issuance and QR-based entry for a real event.",
     highlights: [
       "Admin dashboard for managing the event and ticket sales",
       "VIP and premium ticket tiers",
@@ -41,7 +41,7 @@ export const projects: Project[] = [
     monogram: "FMP",
     featured: true,
     context: [
-      "FMP Ticketing System was built for the Strings of Hope/Yulari concert. The event needed one place to sell tickets online, issue them to buyers and check them at the door.",
+      "FMP Ticketing System was built for the Strings of Hope concert. The event needed one place to sell tickets online, issue them to buyers and check them at the door.",
       "Organisers manage the event and its ticket tiers from an admin dashboard. Each ticket carries a QR code, which is scanned at the venue to record attendance.",
     ],
   },

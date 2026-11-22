@@ -1,23 +1,98 @@
 import { ArrowRight, ArrowUpRight, Lock } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import type { Project } from "@/types/content";
 import { Tag } from "@/components/ui/tag";
+import { projectLinks, projectStatus, type ProjectSummary } from "@/lib/content";
 import { projectTone } from "@/lib/project-tone";
+import { urlFor } from "@/sanity/lib/image";
 import { StatusBadge } from "./status-badge";
 
+type VisualProject = Pick<ProjectSummary, "category" | "panelInitials" | "thumbnail"> & {
+  featured?: boolean | null;
+};
+
 type ProjectVisualProps = {
-  project: Project;
+  project: VisualProject;
   index: number;
   className?: string;
 };
 
 /**
- * Colour-blocked decorative panel: a numbered label, a dot pattern and the project
- * monogram. Not a screenshot, and hidden from assistive technology.
+ * The project's colour panel (numbered label, initials). When a thumbnail is uploaded in
+ * Sanity, the screenshot is framed inside the panel at its true proportions, never cropped
+ * to fit: a phone frame for portrait (mobile) screenshots, a browser window for landscape
+ * ones. Without a thumbnail, the panel is purely decorative and hidden from assistive technology.
  */
 export function ProjectVisual({ project, index, className = "" }: ProjectVisualProps) {
+  const thumbnail = project.thumbnail?.asset?.url ? project.thumbnail : null;
   const tone = projectTone(index);
   const number = String(index + 1).padStart(2, "0");
+
+  if (thumbnail) {
+    const dimensions = thumbnail.asset?.metadata?.dimensions;
+    const ratio = dimensions?.width && dimensions.height ? dimensions.height / dimensions.width : 0.75;
+    const isPortrait = ratio > 1;
+    const width = isPortrait ? 640 : 1400;
+    const blur = thumbnail.asset?.metadata?.lqip
+      ? { placeholder: "blur" as const, blurDataURL: thumbnail.asset.metadata.lqip }
+      : {};
+
+    return (
+      <div className={`relative overflow-hidden ${tone.panel} ${tone.text} ${className}`}>
+        <span aria-hidden="true" className={`eyebrow absolute top-6 left-6 z-10 ${isPortrait ? "max-w-[44%]" : "max-w-[70%]"}`}>
+          {number} / {project.category}
+        </span>
+
+        {isPortrait ? (
+          <>
+            <span
+              aria-hidden="true"
+              className={`absolute bottom-6 left-6 z-10 font-display leading-[0.85] font-bold ${
+                project.featured ? "text-7xl sm:text-8xl" : "text-5xl"
+              }`}
+            >
+              {project.panelInitials}
+            </span>
+            {/* Phone frame rising from the bottom edge (the panel clips the lower part). On the
+                tall featured panel at desktop width the whole phone fits, so it is shown complete. */}
+            <div
+              className={`absolute top-6 right-6 w-[38%] max-w-56 overflow-hidden rounded-t-[1.75rem] border-[5px] border-b-0 border-plum bg-plum shadow-[0_10px_30px_rgb(46_26_71/0.35)] ${
+                project.featured ? "lg:top-1/2 lg:-translate-y-1/2 lg:rounded-b-[1.75rem] lg:border-b-[5px]" : ""
+              }`}
+            >
+              <Image
+                src={urlFor(thumbnail).width(width).url()}
+                alt={thumbnail.alt ?? ""}
+                width={width}
+                height={Math.round(width * ratio)}
+                sizes="(min-width: 1024px) 224px, 40vw"
+                className={`h-auto w-full rounded-t-[1.4rem] ${project.featured ? "lg:rounded-b-[1.4rem]" : ""}`}
+                {...blur}
+              />
+            </div>
+          </>
+        ) : (
+          /* Browser window rising from the bottom edge; the panel clips the lower part. */
+          <div className="absolute inset-x-6 top-16 overflow-hidden rounded-t-xl border-2 border-b-0 border-plum bg-white shadow-[0_10px_30px_rgb(46_26_71/0.35)]">
+            <div aria-hidden="true" className="flex gap-1.5 border-b-2 border-plum bg-ivory px-3 py-2">
+              <span className="size-2 rounded-full bg-plum/30" />
+              <span className="size-2 rounded-full bg-plum/30" />
+              <span className="size-2 rounded-full bg-plum/30" />
+            </div>
+            <Image
+              src={urlFor(thumbnail).width(width).url()}
+              alt={thumbnail.alt ?? ""}
+              width={width}
+              height={Math.round(width * ratio)}
+              sizes={project.featured ? "(min-width: 1024px) 40vw, 90vw" : "(min-width: 1024px) 28vw, (min-width: 768px) 45vw, 90vw"}
+              className="h-auto w-full"
+              {...blur}
+            />
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -25,7 +100,7 @@ export function ProjectVisual({ project, index, className = "" }: ProjectVisualP
       className={`relative flex flex-col justify-between overflow-hidden p-6 ${tone.panel} ${tone.text} ${className}`}
     >
       <span className="eyebrow relative z-10 max-w-[65%]">
-        {number} / {project.type}
+        {number} / {project.category}
       </span>
       <span className="dot-pattern absolute top-5 right-5 size-28 opacity-30" />
       <span
@@ -33,20 +108,23 @@ export function ProjectVisual({ project, index, className = "" }: ProjectVisualP
           project.featured ? "text-7xl sm:text-8xl" : "text-6xl"
         }`}
       >
-        {project.monogram}
+        {project.panelInitials}
       </span>
     </div>
   );
 }
 
 type ProjectCardProps = {
-  project: Project;
+  project: ProjectSummary;
   /** Position in the projects list; drives the panel colour and number. */
   index: number;
 };
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const headingId = `project-${project.slug}`;
+  const status = projectStatus(project);
+  const links = projectLinks(project);
+  const stackLabel = project.stackIsPlanned ? "Planned stack" : "Stack";
 
   return (
     <article
@@ -66,38 +144,39 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       />
 
       <div className={`flex flex-1 flex-col ${project.featured ? "p-6 sm:p-8 lg:p-10" : "p-6"}`}>
-        {project.status ? <StatusBadge status={project.status} /> : null}
+        {status ? <StatusBadge status={status} /> : null}
 
         <h3
           id={headingId}
-          className={`${project.status ? "mt-4" : ""} text-plum ${project.featured ? "text-3xl" : "text-2xl"}`}
+          className={`${status ? "mt-4" : ""} text-plum ${project.featured ? "text-3xl" : "text-2xl"}`}
         >
           {project.name}
         </h3>
         <p className="mt-2 leading-relaxed text-fg-muted">{project.summary}</p>
 
-        <ul className="mt-4 space-y-1.5 text-[0.95rem]">
-          {project.highlights.map((item) => (
-            <li key={item} className="flex gap-2.5">
-              <span className="mt-2 size-1.5 shrink-0 rotate-45 bg-violet" aria-hidden="true" />
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-5">
-          <p className="eyebrow text-fg-muted">{project.stack.label}</p>
-          <ul
-            className="mt-2 flex flex-wrap gap-1.5"
-            aria-label={`${project.name}: ${project.stack.label.toLowerCase()}`}
-          >
-            {project.stack.technologies.map((tech) => (
-              <li key={tech}>
-                <Tag tone={project.stack.label === "Planned stack" ? "subtle" : "default"}>{tech}</Tag>
+        {project.features?.length ? (
+          <ul className="mt-4 space-y-1.5 text-[0.95rem]">
+            {project.features.map((item) => (
+              <li key={item} className="flex gap-2.5">
+                <span className="mt-2 size-1.5 shrink-0 rotate-45 bg-violet" aria-hidden="true" />
+                {item}
               </li>
             ))}
           </ul>
-        </div>
+        ) : null}
+
+        {project.technologies?.length ? (
+          <div className="mt-5">
+            <p className="eyebrow text-fg-muted">{stackLabel}</p>
+            <ul className="mt-2 flex flex-wrap gap-1.5" aria-label={`${project.name}: ${stackLabel.toLowerCase()}`}>
+              {project.technologies.map((tech) => (
+                <li key={tech}>
+                  <Tag tone={project.stackIsPlanned ? "subtle" : "default"}>{tech}</Tag>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
         <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-7 text-sm">
           <Link
@@ -108,26 +187,25 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             <ArrowRight className="size-4" aria-hidden="true" />
             <span className="sr-only">: {project.name}</span>
           </Link>
-          {project.links.length > 0 ? (
-            project.links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 font-bold text-accent underline-offset-4 hover:underline"
-              >
-                {link.label}
-                <ArrowUpRight className="size-4" aria-hidden="true" />
-                <span className="sr-only"> for {project.name} (opens in a new tab)</span>
-              </a>
-            ))
-          ) : (
+          {links.map((link) => (
+            <a
+              key={link.key}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-bold text-accent underline-offset-4 hover:underline"
+            >
+              {link.label}
+              <ArrowUpRight className="size-4" aria-hidden="true" />
+              <span className="sr-only"> for {project.name} (opens in a new tab)</span>
+            </a>
+          ))}
+          {links.length === 0 && project.isRepoPrivate ? (
             <span className="inline-flex items-center gap-1.5 font-semibold text-fg-muted">
               <Lock className="size-3.5" aria-hidden="true" />
               Private repository
             </span>
-          )}
+          ) : null}
         </div>
       </div>
     </article>

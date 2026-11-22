@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
-import { site } from "@/data/site";
+import { getProfile, getSite } from "@/sanity/lib/data";
 
-export const alt = `${site.name}, ${site.role}`;
+// Inner pages set their own image alt text from Sanity; this one applies to the homepage.
+export const alt = "Portfolio share card with name, professional title and headline";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -15,7 +16,13 @@ const muted = "#5e5470";
 
 const stripe = `repeating-linear-gradient(90deg, ${plum} 0px, ${plum} 28px, ${violet} 28px, ${violet} 44px, ${marigold} 44px, ${marigold} 60px, ${lilac} 60px, ${lilac} 68px)`;
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
+  const [site, profile] = await Promise.all([getSite(), getProfile()]);
+  const name = profile.name ?? "";
+  const title = profile.title ?? "";
+  const availability = profile.availability?.isAvailable ? profile.availability.text : null;
+  const monogram = site.profile.monogram;
+
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: ivory, color: plum }}>
@@ -45,26 +52,30 @@ export default function OpengraphImage() {
                 letterSpacing: 2,
               }}
             >
-              {site.monogram}
+              {monogram}
             </div>
             <div style={{ display: "flex", fontSize: 28, letterSpacing: 3, fontWeight: 700 }}>
-              {site.name.toUpperCase()}
+              {name.toUpperCase()}
             </div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
             <div style={{ display: "flex", fontSize: 26, color: violet, letterSpacing: 3, fontWeight: 700 }}>
-              {site.role.toUpperCase()}
+              {title.toUpperCase()}
             </div>
             <div style={{ display: "flex", fontSize: 60, lineHeight: 1.1, fontWeight: 700, maxWidth: 1040 }}>
-              {site.headline}
+              {profile.headline}
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 24, color: muted }}>
-            <div style={{ display: "flex", width: 14, height: 14, borderRadius: 7, background: violet }} />
-            {site.availability}
-          </div>
+          {availability ? (
+            <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 24, color: muted }}>
+              <div style={{ display: "flex", width: 14, height: 14, borderRadius: 7, background: violet }} />
+              {availability}
+            </div>
+          ) : (
+            <div style={{ display: "flex" }} />
+          )}
         </div>
       </div>
     ),

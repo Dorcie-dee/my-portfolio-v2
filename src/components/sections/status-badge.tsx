@@ -1,7 +1,7 @@
-import type { Project } from "@/types/content";
+import type { StatusTone } from "@/lib/content";
 
 type StatusBadgeProps = {
-  status: NonNullable<Project["status"]>;
+  status: { label: string; tone: StatusTone };
 };
 
 const styles = {

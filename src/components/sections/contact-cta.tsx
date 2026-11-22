@@ -1,10 +1,15 @@
 import { Mail } from "lucide-react";
-import { site } from "@/data/site";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { LinkedInIcon } from "@/components/ui/brand-icons";
 
-export function ContactCta() {
+type ContactCtaProps = {
+  email: string | null;
+  /** LinkedIn URL, when the LinkedIn social link is visible. */
+  linkedinUrl: string | null;
+};
+
+export function ContactCta({ email, linkedinUrl }: ContactCtaProps) {
   return (
     <section id="contact" aria-labelledby="contact-heading" className="surface-butter py-section">
       <Container className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.5fr)_auto]">
@@ -24,21 +29,27 @@ export function ContactCta() {
 
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap gap-3">
-            <ButtonLink href={`mailto:${site.email}`}>
-              <Mail className="size-4" aria-hidden="true" />
-              Email me
-            </ButtonLink>
-            <ButtonLink href={site.linkedin} variant="secondary" external>
-              <LinkedInIcon className="size-4" />
-              Connect on LinkedIn
-            </ButtonLink>
+            {email ? (
+              <ButtonLink href={`mailto:${email}`}>
+                <Mail className="size-4" aria-hidden="true" />
+                Email me
+              </ButtonLink>
+            ) : null}
+            {linkedinUrl ? (
+              <ButtonLink href={linkedinUrl} variant="secondary" external>
+                <LinkedInIcon className="size-4" />
+                Connect on LinkedIn
+              </ButtonLink>
+            ) : null}
           </div>
-          <p className="text-sm text-fg-muted">
-            Or write to{" "}
-            <a href={`mailto:${site.email}`} className="font-bold text-accent underline underline-offset-4">
-              {site.email}
-            </a>
-          </p>
+          {email ? (
+            <p className="text-sm text-fg-muted">
+              Or write to{" "}
+              <a href={`mailto:${email}`} className="font-bold text-accent underline underline-offset-4">
+                {email}
+              </a>
+            </p>
+          ) : null}
         </div>
       </Container>
     </section>

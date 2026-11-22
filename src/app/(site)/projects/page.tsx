@@ -4,16 +4,25 @@ import { PageHeader } from "@/components/sections/page-header";
 import { ProjectGrid } from "@/components/sections/project-grid";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { site } from "@/data/site";
 import { pageMetadata } from "@/lib/page-metadata";
+import { getProjects, getSite } from "@/sanity/lib/data";
 
-export const metadata = pageMetadata({
-  title: "Projects",
-  description: `Projects by ${site.name}: an event ticketing platform, a Progressive Web App for a plumbing business, an agricultural opportunity platform and an e-commerce API.`,
-  path: "/projects",
-});
+export async function generateMetadata() {
+  const site = await getSite();
+  return pageMetadata({
+    title: "Projects",
+    description: `Projects by ${site.profile.name}.`,
+    path: "/projects",
+    page: "projects",
+  });
+}
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const [site, projects] = await Promise.all([getSite(), getProjects()]);
+  const linkedin = site.socialLinks.find((link) => link.platform === "linkedin")?.url ?? null;
+  const earlier = projects.filter((project) => project.listing === "earlier");
+  const hasMain = projects.some((project) => project.listing !== "earlier");
+
   return (
     <>
       <PageHeader eyebrow="Projects" title="Software I have built, and what I'm building now.">
@@ -23,24 +32,28 @@ export default function ProjectsPage() {
         </p>
       </PageHeader>
 
-      <section aria-label="Main projects" className="surface-paper py-section">
-        <Container>
-          <ProjectGrid />
-        </Container>
-      </section>
+      {hasMain ? (
+        <section aria-label="Main projects" className="surface-paper py-section">
+          <Container>
+            <ProjectGrid projects={projects} />
+          </Container>
+        </section>
+      ) : null}
 
-      <section aria-labelledby="more-heading" className="surface-lilac py-section">
-        <Container>
-          <SectionHeading id="more-heading" eyebrow="More on GitHub" title="Earlier projects">
-            <p>Smaller projects from earlier in my development work, with public source code.</p>
-          </SectionHeading>
-          <div className="mt-10">
-            <MinorProjects />
-          </div>
-        </Container>
-      </section>
+      {earlier.length ? (
+        <section aria-labelledby="more-heading" className="surface-lilac py-section">
+          <Container>
+            <SectionHeading id="more-heading" eyebrow="More on GitHub" title="Earlier projects">
+              <p>Smaller projects from earlier in my development work, with public source code.</p>
+            </SectionHeading>
+            <div className="mt-10">
+              <MinorProjects projects={earlier} />
+            </div>
+          </Container>
+        </section>
+      ) : null}
 
-      <ContactCta />
+      <ContactCta email={site.settings.contactEmail} linkedinUrl={linkedin} />
     </>
   );
 }

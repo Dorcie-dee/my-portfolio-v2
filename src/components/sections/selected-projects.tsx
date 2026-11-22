@@ -2,9 +2,12 @@ import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import type { ProjectSummary } from "@/lib/content";
 import { ProjectGrid } from "./project-grid";
 
-export function SelectedProjects() {
+export function SelectedProjects({ projects }: { projects: ProjectSummary[] }) {
+  if (!projects.some((project) => project.listing !== "earlier")) return null;
+
   return (
     <section id="projects" aria-labelledby="projects-heading" className="surface-base py-section">
       <Container>
@@ -15,7 +18,7 @@ export function SelectedProjects() {
         />
 
         <div className="mt-14">
-          <ProjectGrid />
+          <ProjectGrid projects={projects} />
         </div>
 
         <ButtonLink href="/projects" variant="secondary" className="mt-10">

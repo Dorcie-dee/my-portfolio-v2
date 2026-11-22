@@ -1,11 +1,14 @@
 import { ArrowRight } from "lucide-react";
-import { currentRole } from "@/data/experience";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import type { ExperienceEntry } from "@/lib/content";
 import { RoleCard } from "./role-card";
 
-export function ExperienceHighlight() {
+/** Homepage highlight of the current role (Profile → Current professional role). */
+export function ExperienceHighlight({ role }: { role: ExperienceEntry | null }) {
+  if (!role) return null;
+
   return (
     <section id="experience" aria-labelledby="experience-heading" className="surface-paper py-section">
       <Container>
@@ -16,7 +19,7 @@ export function ExperienceHighlight() {
         />
 
         <div className="mt-12">
-          <RoleCard role={currentRole} />
+          <RoleCard role={role} />
         </div>
 
         <ButtonLink href="/experience" variant="secondary" className="mt-10">
