@@ -90,7 +90,7 @@ The CV buttons in the header, mobile menu, footer and contact page appear automa
 
 **Portfolio → Projects.** Click the plus icon to create a project. The tabs are:
 
-- **Basics:** name, **slug** (click **Generate**; this becomes the address, e.g. `/projects/harvest-bridge`), category, short description, status (Completed, In use, In development, Prototype) and optional custom status text (e.g. "Used at a live event").
+- **Basics:** name, **slug** (click **Generate**; this becomes the address, e.g. `/projects/harvest-bridge`), category, short description (homepage cards and the case study), an optional **Projects page description** (a differently worded version for the Projects page; leave it empty to reuse the short description), status (Completed, In use, In development, Prototype) and optional custom status text (e.g. "Used at a live event").
 - **Case study:** overview (one box per paragraph), problem or purpose, your role, and key features. For unfinished work, describe the current state honestly.
 - **Technology:** the tools used. Tick **"These technologies are planned"** if they are not implemented yet; they are then shown as a dashed "Planned stack".
 - **Images:** see the next section.
@@ -108,7 +108,7 @@ The CV buttons in the header, mobile menu, footer and contact page appear automa
 
 In a project's **Images** tab:
 
-- **Thumbnail (optional):** shown on the project card and case-study header. Without one, the colour panel with initials is shown (set **Panel initials**, e.g. FMP).
+- **Thumbnail (optional):** shown on the Projects page and the case-study header. On the homepage, only the **featured** project shows its thumbnail; the other homepage cards always keep their colour strip. Without a thumbnail, the colour panel with initials is shown (set **Panel initials**, e.g. FMP).
 - **Screenshots:** click **Add item** (or drag several images in). **Drag to reorder**; the website uses the same order.
 - For every image, fill in **Alternative text** (a short description for people using screen readers). A caption is optional.
 - Click an image and use the **crop and hotspot** tool to choose which part stays visible when the image is resized.
