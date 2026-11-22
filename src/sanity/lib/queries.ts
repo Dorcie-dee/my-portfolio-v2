@@ -108,6 +108,7 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
   purpose,
   role,
   features,
+  sections[]{ _key, heading, paragraphs, points },
   technologies,
   stackIsPlanned,
   panelInitials,

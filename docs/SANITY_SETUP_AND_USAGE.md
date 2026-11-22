@@ -91,7 +91,7 @@ The CV buttons in the header, mobile menu, footer and contact page appear automa
 **Portfolio → Projects.** Click the plus icon to create a project. The tabs are:
 
 - **Basics:** name, **slug** (click **Generate**; this becomes the address, e.g. `/projects/harvest-bridge`), category, short description (homepage cards and the case study), an optional **Projects page description** (a differently worded version for the Projects page; leave it empty to reuse the short description), status (Completed, In use, In development, Prototype) and optional custom status text (e.g. "Used at a live event").
-- **Case study:** overview (one box per paragraph), problem or purpose, your role, and key features. For unfinished work, describe the current state honestly.
+- **Case study:** overview (one box per paragraph), problem or purpose, your role, and key features. For unfinished work, describe the current state honestly. Optional **Case study sections** add more headed sections after the key features (for example "How the system works" or "Current status"); each has a heading, paragraphs and optional bullet points, and you can drag them to reorder.
 - **Technology:** the tools used. Tick **"These technologies are planned"** if they are not implemented yet; they are then shown as a dashed "Planned stack".
 - **Images:** see the next section.
 - **Links:**

@@ -105,6 +105,13 @@ export type Project = {
   purpose?: string;
   role?: string;
   features?: Array<string>;
+  sections?: Array<{
+    heading?: string;
+    paragraphs?: Array<string>;
+    points?: Array<string>;
+    _type: "caseStudySection";
+    _key: string;
+  }>;
   technologies?: Array<string>;
   stackIsPlanned?: boolean;
   thumbnail?: AccessibleImage;
@@ -732,7 +739,7 @@ export type PROJECTS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && slug.current == $slug && isVisible != false && listing == "main"][0]{  _id,  name,  "slug": slug.current,  category,  summary,  status,  statusLabel,  overview,  purpose,  role,  features,  technologies,  stackIsPlanned,  panelInitials,  thumbnail{ alt, crop, hotspot, asset->{ _id, url, metadata{ dimensions{ width, height }, lqip } } },  gallery[]{ _key, alt, caption, crop, hotspot, asset->{ _id, url, metadata{ dimensions{ width, height }, lqip } } },  isRepoPrivate,  repoUrl,  liveUrl,  extraLinks[]{ _key, label, url },  "index": count(*[_type == "project" && isVisible != false && defined(slug.current) && orderRank < ^.orderRank])}
+// Query: *[_type == "project" && slug.current == $slug && isVisible != false && listing == "main"][0]{  _id,  name,  "slug": slug.current,  category,  summary,  status,  statusLabel,  overview,  purpose,  role,  features,  sections[]{ _key, heading, paragraphs, points },  technologies,  stackIsPlanned,  panelInitials,  thumbnail{ alt, crop, hotspot, asset->{ _id, url, metadata{ dimensions{ width, height }, lqip } } },  gallery[]{ _key, alt, caption, crop, hotspot, asset->{ _id, url, metadata{ dimensions{ width, height }, lqip } } },  isRepoPrivate,  repoUrl,  liveUrl,  extraLinks[]{ _key, label, url },  "index": count(*[_type == "project" && isVisible != false && defined(slug.current) && orderRank < ^.orderRank])}
 export type PROJECT_QUERY_RESULT = {
   _id: string;
   name: string | null;
@@ -745,6 +752,12 @@ export type PROJECT_QUERY_RESULT = {
   purpose: string | null;
   role: string | null;
   features: Array<string> | null;
+  sections: Array<{
+    _key: string;
+    heading: string | null;
+    paragraphs: Array<string> | null;
+    points: Array<string> | null;
+  }> | null;
   technologies: Array<string> | null;
   stackIsPlanned: boolean | null;
   panelInitials: string | null;
@@ -840,7 +853,7 @@ declare global {
     '{\n  "settings": *[_id == "siteSettings"][0]{\n    siteTitle,\n    seoDescription,\n    contactEmail,\n    footerText,\n    announcement,\n    pageSeo,\n    shareImage{ alt, asset->{ url, metadata{ dimensions{ width, height } } } }\n  },\n  "profile": *[_id == "profile"][0]{\n    name,\n    title,\n    focusDescriptor,\n    monogram,\n    statement,\n    availability\n  },\n  "socialLinks": *[_type == "socialLink" && isVisible != false] | order(orderRank){\n    _id,\n    platform,\n    label,\n    url\n  },\n  "cv": *[_id == "cv" && isVisible == true && defined(file.asset)][0]{\n    buttonLabel,\n    "url": file.asset->url\n  }\n}': SITE_QUERY_RESULT;
     '*[_id == "profile"][0]{\n  name,\n  title,\n  focusDescriptor,\n  greeting,\n  headline,\n  headlineHighlight,\n  heroIntro,\n  rightNow[]{ _key, label, value },\n  introHeading,\n  introParagraphs,\n  aboutHeading,\n  biography,\n  focusAreas[]{ _key, title, description },\n  quickFacts[]{ _key, label, value },\n  interests,\n  availability,\n  location,\n  showPhoto,\n  photo{ alt, crop, hotspot, asset->{ _id, url, metadata{ dimensions{ width, height }, lqip } } },\n  "currentRole": currentRole->{\n    _id,\n    organisation,\n    title,\n    employmentType,\n    location,\n    startDate,\n    endDate,\n    isCurrent,\n    datePrecision,\n    summary,\n    contributions,\n    technologies\n  }\n}': PROFILE_QUERY_RESULT;
     '*[_type == "project" && isVisible != false && defined(slug.current)] | order(orderRank){\n  _id,\n  name,\n  "slug": slug.current,\n  category,\n  summary,\n  projectsPageSummary,\n  status,\n  statusLabel,\n  features,\n  technologies,\n  stackIsPlanned,\n  panelInitials,\n  thumbnail{ alt, crop, hotspot, asset->{ _id, url, metadata{ dimensions{ width, height }, lqip } } },\n  isRepoPrivate,\n  repoUrl,\n  liveUrl,\n  extraLinks[]{ _key, label, url },\n  featured,\n  listing\n}': PROJECTS_QUERY_RESULT;
-    '*[_type == "project" && slug.current == $slug && isVisible != false && listing == "main"][0]{\n  _id,\n  name,\n  "slug": slug.current,\n  category,\n  summary,\n  status,\n  statusLabel,\n  overview,\n  purpose,\n  role,\n  features,\n  technologies,\n  stackIsPlanned,\n  panelInitials,\n  thumbnail{ alt, crop, hotspot, asset->{ _id, url, metadata{ dimensions{ width, height }, lqip } } },\n  gallery[]{ _key, alt, caption, crop, hotspot, asset->{ _id, url, metadata{ dimensions{ width, height }, lqip } } },\n  isRepoPrivate,\n  repoUrl,\n  liveUrl,\n  extraLinks[]{ _key, label, url },\n  "index": count(*[_type == "project" && isVisible != false && defined(slug.current) && orderRank < ^.orderRank])\n}': PROJECT_QUERY_RESULT;
+    '*[_type == "project" && slug.current == $slug && isVisible != false && listing == "main"][0]{\n  _id,\n  name,\n  "slug": slug.current,\n  category,\n  summary,\n  status,\n  statusLabel,\n  overview,\n  purpose,\n  role,\n  features,\n  sections[]{ _key, heading, paragraphs, points },\n  technologies,\n  stackIsPlanned,\n  panelInitials,\n  thumbnail{ alt, crop, hotspot, asset->{ _id, url, metadata{ dimensions{ width, height }, lqip } } },\n  gallery[]{ _key, alt, caption, crop, hotspot, asset->{ _id, url, metadata{ dimensions{ width, height }, lqip } } },\n  isRepoPrivate,\n  repoUrl,\n  liveUrl,\n  extraLinks[]{ _key, label, url },\n  "index": count(*[_type == "project" && isVisible != false && defined(slug.current) && orderRank < ^.orderRank])\n}': PROJECT_QUERY_RESULT;
     '*[_type == "project" && isVisible != false && listing == "main" && defined(slug.current)] | order(orderRank).slug.current': PROJECT_SLUGS_QUERY_RESULT;
     '*[_type == "skillCategory" && isVisible != false] | order(orderRank){\n  _id,\n  title,\n  summary,\n  core,\n  familiar\n}': SKILLS_QUERY_RESULT;
     '*[_type == "experience" && isVisible != false] | order(orderRank){\n  _id,\n  organisation,\n  title,\n  employmentType,\n  location,\n  startDate,\n  endDate,\n  isCurrent,\n  datePrecision,\n  summary,\n  contributions,\n  technologies\n}': EXPERIENCE_QUERY_RESULT;

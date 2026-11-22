@@ -107,6 +107,33 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
                 </ul>
               </>
             ) : null}
+
+            {project.sections?.map((section) =>
+              section.heading ? (
+                <section key={section._key} aria-labelledby={`section-${section._key}`}>
+                  <h2 id={`section-${section._key}`} className="mt-12 text-2xl text-plum">
+                    {section.heading}
+                  </h2>
+                  {section.paragraphs?.length ? (
+                    <div className="mt-4 space-y-4 text-lg leading-relaxed text-fg-muted">
+                      {section.paragraphs.map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+                  ) : null}
+                  {section.points?.length ? (
+                    <ul className="mt-4 space-y-3">
+                      {section.points.map((point) => (
+                        <li key={point} className="flex gap-3 leading-relaxed">
+                          <span className="mt-2.5 size-1.5 shrink-0 rotate-45 bg-violet" aria-hidden="true" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </section>
+              ) : null,
+            )}
           </div>
 
           <aside
