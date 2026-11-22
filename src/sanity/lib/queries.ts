@@ -79,6 +79,7 @@ export const PROJECTS_QUERY = defineQuery(`*[_type == "project" && isVisible != 
   "slug": slug.current,
   category,
   summary,
+  projectsPageSummary,
   status,
   statusLabel,
   features,
