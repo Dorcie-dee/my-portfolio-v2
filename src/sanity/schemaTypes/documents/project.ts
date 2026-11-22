@@ -70,6 +70,16 @@ export const project = defineType({
       validation: (rule) => rule.required().max(260),
     }),
     defineField({
+      name: "projectsPageSummary",
+      title: "Projects page description (optional)",
+      type: "text",
+      rows: 3,
+      group: "basics",
+      description:
+        "A differently worded short description for the Projects page. Leave empty to use the short description above.",
+      validation: (rule) => rule.max(260),
+    }),
+    defineField({
       name: "status",
       title: "Status",
       type: "string",

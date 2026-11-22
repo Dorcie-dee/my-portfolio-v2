@@ -1,7 +1,7 @@
 import { ContactCta } from "@/components/sections/contact-cta";
 import { MinorProjects } from "@/components/sections/minor-projects";
 import { PageHeader } from "@/components/sections/page-header";
-import { ProjectGrid } from "@/components/sections/project-grid";
+import { BentoGrid } from "@/components/sections/project-layouts";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { pageMetadata } from "@/lib/page-metadata";
@@ -35,7 +35,7 @@ export default async function ProjectsPage() {
       {hasMain ? (
         <section aria-label="Main projects" className="surface-paper py-section">
           <Container>
-            <ProjectGrid projects={projects} />
+            <BentoGrid projects={projects} idPrefix="project" />
           </Container>
         </section>
       ) : null}
