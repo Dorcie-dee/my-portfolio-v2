@@ -126,6 +126,44 @@ export const project = defineType({
       description: "What has been built. For unfinished projects, describe the current state. Required for main projects.",
       validation: (rule) => rule.custom(requiredForMain("Add at least one feature.")),
     }),
+    defineField({
+      name: "sections",
+      title: "Case study sections (optional)",
+      type: "array",
+      group: "story",
+      description:
+        "Extra headed sections shown after the key features, e.g. how it works, technical decisions, challenges or current status. Drag to reorder.",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "caseStudySection",
+          title: "Section",
+          fields: [
+            defineField({
+              name: "heading",
+              title: "Heading",
+              type: "string",
+              validation: (rule) => rule.required().max(80),
+            }),
+            defineField({
+              name: "paragraphs",
+              title: "Paragraphs",
+              type: "array",
+              of: [defineArrayMember({ type: "text", rows: 4 })],
+              description: "One box per paragraph.",
+            }),
+            defineField({
+              name: "points",
+              title: "Bullet points (optional)",
+              type: "array",
+              of: [defineArrayMember({ type: "string" })],
+              description: "Shown as a list after the paragraphs.",
+            }),
+          ],
+          preview: { select: { title: "heading" } },
+        }),
+      ],
+    }),
 
     // Technology
     defineField({
