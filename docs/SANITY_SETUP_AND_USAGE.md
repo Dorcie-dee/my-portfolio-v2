@@ -12,7 +12,7 @@ This guide explains how to update the portfolio without touching code. No techni
 
 **How they talk to each other:** each page asks Sanity for its content and keeps a copy for speed. Every page refreshes from Sanity at most once a minute, and Sanity's own cache can add up to about another minute. So **published changes appear on the live site within about 1 to 2 minutes, without a redeploy.**
 
-**Security:** only members of the Sanity project can sign in to `/manage` and change content. Visitors can only see published content. The website stores no passwords or keys.
+**Security:** only members of the Sanity project can sign in to `/manage` and change content. Visitors can only see published content. The website stores no passwords; its only key is an optional read-only preview key, kept on the server (see [section 15](#15-previewing-changes-before-publishing)).
 
 ---
 
@@ -44,6 +44,7 @@ There are three different ideas. Keep them separate:
 - Every change is saved as a draft automatically. Nothing goes live until you click the green **Publish** button (bottom right).
 - To undo unpublished changes, open the menu next to **Publish** and choose **Discard changes**.
 - **Unpublish** removes a document from the website without deleting it.
+- To see a change on the real pages before publishing, use the **Preview** tab (see [section 15](#15-previewing-changes-before-publishing)).
 
 ---
 
@@ -143,21 +144,24 @@ Under **Responsibilities and contributions**, describe your own contributions an
 
 ## 12. Environment variables
 
-The website needs only two settings. Neither is secret: they identify the Sanity project, much like a public address.
+The website needs two public settings. Neither is secret: they identify the Sanity project, much like a public address. A third, optional setting enables the Preview tab.
 
 | Name | Value |
 | --- | --- |
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | Your project ID (sanity.io/manage → your project → overview) |
 | `NEXT_PUBLIC_SANITY_DATASET` | `production` |
+| `SANITY_API_READ_TOKEN` (optional, **secret**) | A **Viewer** token for previews (see section 15). Server-side only. |
 
 - **On your computer:** copy `.env.example` to `.env` (or `.env.local`) and fill in the project ID. These files are never committed.
-- **Never add a Sanity token** with a `NEXT_PUBLIC_` prefix. This project does not need any token.
+- **Never add a Sanity token** with a `NEXT_PUBLIC_` prefix. The only token this project uses is the optional read-only preview token, and it must keep its exact name `SANITY_API_READ_TOKEN`.
 
 ---
 
 ## 13. Vercel and GitHub configuration
 
-**Vercel** (project → **Settings → Environment Variables**): add both variables above with type **Config** (not Secret) and tick **Production, Preview and Development**. Redeploy once after adding them.
+**Vercel** (project → **Settings → Environment Variables**): add both public variables above with type **Config** (not Secret) and tick **Production, Preview and Development**. For the Preview tab, also add `SANITY_API_READ_TOKEN` as **Sensitive**, ticking the same three environments. Redeploy once after adding them.
+
+GitHub needs only the two public variables; the build works without the preview token.
 
 **GitHub** (repository → **Settings → Secrets and variables → Actions → Variables** tab): add the same two variables so CI can build the site.
 
@@ -183,5 +187,27 @@ The website needs only two settings. Neither is secret: they identify the Sanity
 | **A Publish button is greyed out** | A required field is missing. Look for the red warning on the field. |
 | **The Vercel build fails with "Missing environment variable"** | Add both `NEXT_PUBLIC_SANITY_*` variables in Vercel (and GitHub Variables for CI). |
 | **The build fails with "Sanity content is missing"** | Publish the **Profile** and **Site settings** documents. |
+| **The Preview tab says "Preview is not configured" or shows only published content** | Add `SANITY_API_READ_TOKEN` (a Viewer token) in Vercel or `.env.local`, then redeploy or restart. |
+| **Preview stays blank in Firefox or Safari** | Allow cookies for the site, or use Chrome. The preview needs a cookie inside the Studio frame. |
 
 **Seed script (developers only):** `scripts/seed-sanity.ts` copied the original content into Sanity once. Do not re-run it: it would overwrite your edits with the original text.
+
+---
+
+## 15. Previewing changes before publishing
+
+The **Preview** tab at the top of `/manage` shows the real website next to the editing fields.
+
+- **Hover** over text or images in the preview to see outlines. **Click** one to open the exact field that controls it.
+- **Edits appear in the preview** within a second or two, before you publish. Visitors still see only published content.
+- Each document also lists the pages it is **used on**, with links to open them in the preview.
+- Use the toolbar to switch between desktop and mobile widths.
+- A small **Preview mode · Exit** button appears on previewed pages. Click it if you ever see it outside the Studio.
+
+**One-time setup** (needed for the Preview tab to show drafts):
+1. **sanity.io/manage → your project → API → Tokens → Add API token.** Name it "Portfolio preview" and choose **Viewer** (read-only). Copy it.
+2. **Vercel → Settings → Environment Variables:** add `SANITY_API_READ_TOKEN` with the token as a **Sensitive** value for Production, Preview and Development, then redeploy.
+3. **On your computer:** add the same line to `.env.local` and restart the dev server.
+
+The token can read drafts but cannot change anything. It stays on the server and is never sent to visitors' browsers. Preview mode can only be switched on from the Studio by signed-in project members.
+
