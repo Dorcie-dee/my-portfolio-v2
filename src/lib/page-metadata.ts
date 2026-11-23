@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { stegaClean } from "next-sanity";
 import { getSite } from "@/sanity/lib/data";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -40,7 +41,8 @@ export async function pageMetadata({ title, description, path, page }: PageMetad
   const fullTitle = `${pageTitle} | ${siteTitle}`;
   const image = shareImageFor(site);
 
-  return {
+  // stegaClean removes invisible preview markers (draft mode only) from metadata text.
+  return stegaClean({
     title: pageTitle,
     description: pageDescription,
     alternates: { canonical: path },
@@ -59,5 +61,5 @@ export async function pageMetadata({ title, description, path, page }: PageMetad
       description: pageDescription,
       images: [image],
     },
-  };
+  });
 }

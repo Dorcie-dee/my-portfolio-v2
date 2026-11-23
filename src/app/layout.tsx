@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { stegaClean } from "next-sanity";
 import { nunitoSans, play } from "@/lib/fonts";
 import { shareImageFor } from "@/lib/page-metadata";
 import { getSiteUrl } from "@/lib/site-url";
@@ -7,7 +8,8 @@ import "./globals.css";
 
 /** Site-wide defaults from Sanity (Site settings and Profile). Pages can override them. */
 export async function generateMetadata(): Promise<Metadata> {
-  const site = await getSite();
+  // stegaClean removes invisible preview markers (draft mode only) from metadata text.
+  const site = stegaClean(await getSite());
   const siteTitle = site.settings.siteTitle ?? site.profile.name ?? "";
   const title = [siteTitle, site.profile.title].filter(Boolean).join(" | ");
   const description = site.settings.seoDescription ?? undefined;
