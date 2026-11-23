@@ -153,7 +153,7 @@ export function BentoGrid({ projects, idPrefix }: LayoutProps) {
           >
             {/* Screenshot: an inset on top on small screens, the right side of the banner on large ones. */}
             <div className="p-3 lg:order-last lg:pl-0">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl lg:aspect-auto lg:h-full lg:min-h-80">
+              <div className="relative aspect-16/10 overflow-hidden rounded-2xl lg:aspect-auto lg:h-full lg:min-h-80">
                 {featured.project.thumbnail?.asset?.url ? (
                   <ShotFill
                     project={featured.project}
@@ -213,7 +213,7 @@ export function BentoGrid({ projects, idPrefix }: LayoutProps) {
                 // A rounded inset with a slim margin, like a mounted photo.
                 <div
                   className={`relative overflow-hidden rounded-2xl ${
-                    wide ? "aspect-[16/10] lg:aspect-auto lg:h-52 lg:w-96 lg:shrink-0" : "-mx-2 -mt-2 aspect-[16/10]"
+                    wide ? "aspect-16/10 lg:aspect-auto lg:h-52 lg:w-96 lg:shrink-0" : "-mx-2 -mt-2 aspect-16/10"
                   }`}
                 >
                   <ShotFill

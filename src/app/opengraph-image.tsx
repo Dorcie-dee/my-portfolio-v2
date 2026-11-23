@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { stegaClean } from "next-sanity";
 import { getProfile, getSite } from "@/sanity/lib/data";
 
 // Inner pages set their own image alt text from Sanity; this one applies to the homepage.
@@ -17,7 +18,8 @@ const muted = "#5e5470";
 const stripe = `repeating-linear-gradient(90deg, ${plum} 0px, ${plum} 28px, ${violet} 28px, ${violet} 44px, ${marigold} 44px, ${marigold} 60px, ${lilac} 60px, ${lilac} 68px)`;
 
 export default async function OpengraphImage() {
-  const [site, profile] = await Promise.all([getSite(), getProfile()]);
+  // stegaClean removes invisible preview markers (draft mode only) before drawing text.
+  const [site, profile] = stegaClean(await Promise.all([getSite(), getProfile()]));
   const name = profile.name ?? "";
   const title = profile.title ?? "";
   const availability = profile.availability?.isAvailable ? profile.availability.text : null;

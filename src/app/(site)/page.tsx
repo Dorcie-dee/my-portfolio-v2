@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { stegaClean } from "next-sanity";
 import { ContactCta } from "@/components/sections/contact-cta";
 import { ExperienceHighlight } from "@/components/sections/experience-highlight";
 import { Hero } from "@/components/sections/hero";
@@ -18,7 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = override?.description || site.settings.seoDescription || undefined;
   const customImage = site.settings.shareImage?.asset?.url ? [shareImageFor(site)] : undefined;
 
-  return {
+  // stegaClean removes invisible preview markers (draft mode only) from metadata text.
+  return stegaClean({
     ...(override?.title ? { title: { absolute: override.title } } : {}),
     ...(override?.description ? { description } : {}),
     alternates: { canonical: "/" },
@@ -31,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       ...(customImage ? { images: customImage } : {}),
     },
-  };
+  });
 }
 
 export default async function HomePage() {

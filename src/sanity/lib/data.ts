@@ -1,4 +1,4 @@
-import { sanityFetch } from "./fetch";
+import { publishedFetch, sanityFetch } from "./fetch";
 import {
   EXPERIENCE_QUERY,
   PROFILE_QUERY,
@@ -34,7 +34,8 @@ export const getProjects = () => sanityFetch(PROJECTS_QUERY);
 
 export const getProject = (slug: string) => sanityFetch(PROJECT_QUERY, { slug });
 
-export const getProjectSlugs = () => sanityFetch(PROJECT_SLUGS_QUERY);
+// Used by generateStaticParams and the sitemap, which run outside a request: published only.
+export const getProjectSlugs = () => publishedFetch(PROJECT_SLUGS_QUERY);
 
 export const getSkills = () => sanityFetch(SKILLS_QUERY);
 

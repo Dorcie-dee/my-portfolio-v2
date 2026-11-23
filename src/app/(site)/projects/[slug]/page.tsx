@@ -54,7 +54,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           <ProjectVisual
             project={project}
             index={project.index}
-            className="aspect-[4/3] rounded-3xl border-2 border-outline shadow-stamp-lg"
+            className="aspect-4/3 rounded-3xl border-2 border-outline shadow-stamp-lg"
           />
         }
       >
